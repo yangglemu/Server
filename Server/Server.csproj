@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ECB7B71C-91AD-4C30-A368-34CCD6DD5A1E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Server</RootNamespace>
+    <AssemblyName>Server</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <PublishUrl>发布\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\yuan.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Server.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\MySQL\MySQL Connector Net 6.7.4\Assemblies\v4.5\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\..\..\mysql_NPOI_qt\NPOI\NPOI 2.1.1\dotnet4\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="Seagull.BarTender.Print, Version=10.1.3.1, Culture=neutral, PublicKeyToken=109ff779a1b4cbc7, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Seagull\BarTender Suite\SDK\Assemblies\Seagull.BarTender.Print.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddLB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddLB.Designer.cs">
+      <DependentUpon>AddLB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddXL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddXL.Designer.cs">
+      <DependentUpon>AddXL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddZL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddZL.Designer.cs">
+      <DependentUpon>AddZL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Edit_rk_temp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Edit_rk_temp.Designer.cs">
+      <DependentUpon>Form_Edit_rk_temp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_zp_ck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_zp_ck.Designer.cs">
+      <DependentUpon>Form_zp_ck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ckth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ckth.Designer.cs">
+      <DependentUpon>Form_ckth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_cx_qb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_cx_qb.Designer.cs">
+      <DependentUpon>Form_cx_qb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_cx_zm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_cx_zm.Designer.cs">
+      <DependentUpon>Form_cx_zm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_cx_zy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_cx_zy.Designer.cs">
+      <DependentUpon>Form_cx_zy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_EditWorker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_EditWorker.Designer.cs">
+      <DependentUpon>Form_EditWorker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Edit_People.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Edit_People.Designer.cs">
+      <DependentUpon>Form_Edit_People.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_goods_edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_goods_edit.Designer.cs">
+      <DependentUpon>Form_goods_edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Input_fs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Input_fs.Designer.cs">
+      <DependentUpon>Form_Input_fs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_jfcz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_jfcz.Designer.cs">
+      <DependentUpon>Form_jfcz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_main.Designer.cs">
+      <DependentUpon>Form_main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_MDIChild.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_MDIChild.Designer.cs">
+      <DependentUpon>Form_MDIChild.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_NewGoods.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_NewGoods.Designer.cs">
+      <DependentUpon>Form_NewGoods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_New_People.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_New_People.Designer.cs">
+      <DependentUpon>Form_New_People.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Print_BarCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Print_BarCode.Designer.cs">
+      <DependentUpon>Form_Print_BarCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_zp_rk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_zp_rk.Designer.cs">
+      <DependentUpon>Form_zp_rk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_rk_auto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_rk_auto.Designer.cs">
+      <DependentUpon>Form_rk_auto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_rk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_rk.Designer.cs">
+      <DependentUpon>Form_rk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_rk_工具.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_rk_工具.Designer.cs">
+      <DependentUpon>Form_rk_工具.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SelectDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SelectDate.Designer.cs">
+      <DependentUpon>Form_SelectDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_start.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_start.Designer.cs">
+      <DependentUpon>Form_start.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_NewWorkerl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_NewWorkerl.Designer.cs">
+      <DependentUpon>Form_NewWorkerl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DatePicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DatePicker.Designer.cs">
+      <DependentUpon>Form_DatePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_zdhd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_zdhd.Designer.cs">
+      <DependentUpon>Form_zdhd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_cx_one.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_cx_one.Designer.cs">
+      <DependentUpon>Form_cx_one.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ghs.cs" />
+    <Compile Include="GoodsClass.cs" />
+    <Compile Include="link.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="link.designer.cs">
+      <DependentUpon>link.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Worker.cs" />
+    <EmbeddedResource Include="AddLB.resx">
+      <DependentUpon>AddLB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddXL.resx">
+      <DependentUpon>AddXL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddZL.resx">
+      <DependentUpon>AddZL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Edit_rk_temp.resx">
+      <DependentUpon>Form_Edit_rk_temp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_zp_ck.resx">
+      <DependentUpon>Form_zp_ck.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ckth.resx">
+      <DependentUpon>Form_ckth.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_cx_qb.resx">
+      <DependentUpon>Form_cx_qb.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_cx_zm.resx">
+      <DependentUpon>Form_cx_zm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_cx_zy.resx">
+      <DependentUpon>Form_cx_zy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_EditWorker.resx">
+      <DependentUpon>Form_EditWorker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Edit_People.resx">
+      <DependentUpon>Form_Edit_People.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_goods_edit.resx">
+      <DependentUpon>Form_goods_edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Input_fs.resx">
+      <DependentUpon>Form_Input_fs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_jfcz.resx">
+      <DependentUpon>Form_jfcz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_main.resx">
+      <DependentUpon>Form_main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_MDIChild.resx">
+      <DependentUpon>Form_MDIChild.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_NewGoods.resx">
+      <DependentUpon>Form_NewGoods.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_New_People.resx">
+      <DependentUpon>Form_New_People.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Print_BarCode.resx">
+      <DependentUpon>Form_Print_BarCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_zp_rk.resx">
+      <DependentUpon>Form_zp_rk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_rk_auto.resx">
+      <DependentUpon>Form_rk_auto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_rk.resx">
+      <DependentUpon>Form_rk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_rk_工具.resx">
+      <DependentUpon>Form_rk_工具.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SelectDate.resx">
+      <DependentUpon>Form_SelectDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_start.resx">
+      <DependentUpon>Form_start.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_NewWorkerl.resx">
+      <DependentUpon>Form_NewWorkerl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_DatePicker.resx">
+      <DependentUpon>Form_DatePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_zdhd.resx">
+      <DependentUpon>Form_zdhd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_cx_one.resx">
+      <DependentUpon>Form_cx_one.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="link.resx">
+      <DependentUpon>link.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\yuan.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Diagram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Scenario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Brush.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\3d bar chart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Find.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\3d graph.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Flower.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Chart xy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Target1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Time.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Contrast.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Search text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\List.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\3d chart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Color layers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Arc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Properties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Angle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Synchronize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Dropper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Delete1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Feather.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Erase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\About.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Graphic designer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Test line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ooopic_1458911634.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Camera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Eraser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
