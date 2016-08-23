@@ -36,8 +36,28 @@ namespace Server
 
         static MySqlConnection connection;
         public static Engine engine;
-        public static LabelFormatDocument labeldoc;
-        public static LabelFormatDocument labeldoc2;
+        public static LabelFormatDocument _labeldoc;
+        public static LabelFormatDocument _labeldoc2;
+
+        public static LabelFormatDocument labeldoc
+        {
+            get
+            {
+                if (_labeldoc != null) _labeldoc.Close(SaveOptions.DoNotSaveChanges);
+                _labeldoc = engine.Documents.Open("d:/bartender/mylabel.btw");
+                return _labeldoc;
+            }
+        }
+        public static LabelFormatDocument labeldoc2
+        {
+            get
+            {
+                if (_labeldoc2 != null) _labeldoc2.Close(SaveOptions.DoNotSaveChanges);
+                _labeldoc2 = engine.Documents.Open("d:/bartender/mylabel2.btw");
+                return _labeldoc2;
+            }
+        }
+
         public static MySqlConnection Connection
         {
             get { return connection; }
@@ -456,15 +476,16 @@ namespace Server
 
         private void GetPrinter(object sender, DoWorkEventArgs e)
         {
-            PrintDocument pd=new PrintDocument();
+            PrintDocument pd = new PrintDocument();
             string s = pd.PrinterSettings.PrinterName;
             if (!s.Equals(Form_main.printer))
                 return;
             try
             {
                 Form_main.engine = new Seagull.BarTender.Print.Engine(true);
-                Form_main.labeldoc = Form_main.engine.Documents.Open("d:/bartender/mylabel.btw");
-                Form_main.labeldoc2 = Form_main.engine.Documents.Open("d:/bartender/mylabel2.btw");
+                //Form_main.engine.Start(this.Handle);
+                //Form_main.labeldoc = Form_main.engine.Documents.Open("d:/bartender/mylabel.btw");
+                //Form_main.labeldoc2 = Form_main.engine.Documents.Open("d:/bartender/mylabel2.btw");
                 this.EnabledPrint = true;
             }
             catch (PrintEngineException)
@@ -1239,7 +1260,7 @@ namespace Server
             if (Form_main.labeldoc2 != null)
                 Form_main.labeldoc2.Close(SaveOptions.DoNotSaveChanges);
             if (Form_main.engine != null)
-                Form_main.engine.Stop();
+                Form_main.engine.Stop(SaveOptions.DoNotSaveChanges, 3000);
             connection.Close();
         }
 
@@ -1546,7 +1567,7 @@ namespace Server
             s += string.Format("date(sale_db.rq)>='{0}' ", sd.dateTimePicker1.Value.ToShortDateString());
             s += string.Format("and date(sale_db.rq)<='{0}'", sd.dateTimePicker2.Value.ToShortDateString());
             s += "group by fl.dnm";
-             
+
             command.CommandText = s;
             MySqlDataAdapter adapter = new MySqlDataAdapter(command);
             DataTable dt = new DataTable();
@@ -2134,7 +2155,7 @@ namespace Server
             child.Text = "按价格浏览库存";
             child.items.AddRange(new string[] { "售价" });
             this.dataGridView1 = child.dataGridView;
-            child.dataGridView.DataSource = dt;            
+            child.dataGridView.DataSource = dt;
             string sumsl;
             string sumje;
             sumsl = dt.Compute("sum(数量)", null).ToString();
@@ -2178,6 +2199,11 @@ namespace Server
             }
             child.toolStripStatusLabel1.Text = "共【" + dt.Rows.Count + "】种商品，【" + sumsl + "】件商品，【" + je.ToString("N2") + "】元";
             child.Show();
+        }
+
+        private void Form_main_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

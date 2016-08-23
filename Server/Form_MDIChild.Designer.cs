@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this._toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -90,40 +90,40 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeight = 35;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.RowHeadersWidth = 80;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -133,6 +133,8 @@
             this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
             this.dataGridView1.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView1_RowsRemoved);
             this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
+            this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
             // 
             // contextMenuStrip1_print
             // 
@@ -144,14 +146,14 @@
             this.Delete撤回此入库ToolStripMenuItem,
             this.撤回此出库ToolStripMenuItem});
             this.contextMenuStrip1_print.Name = "contextMenuStrip1_print";
-            this.contextMenuStrip1_print.Size = new System.Drawing.Size(185, 350);
+            this.contextMenuStrip1_print.Size = new System.Drawing.Size(169, 328);
             // 
             // toolStripMenuItem_删除此行
             // 
             this.toolStripMenuItem_删除此行.Image = global::Server.Properties.Resources.Eraser;
             this.toolStripMenuItem_删除此行.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem_删除此行.Name = "toolStripMenuItem_删除此行";
-            this.toolStripMenuItem_删除此行.Size = new System.Drawing.Size(184, 54);
+            this.toolStripMenuItem_删除此行.Size = new System.Drawing.Size(168, 54);
             this.toolStripMenuItem_删除此行.Text = "删除此行";
             this.toolStripMenuItem_删除此行.Visible = false;
             this.toolStripMenuItem_删除此行.Click += new System.EventHandler(this.toolStripMenuItem_删除此行_Click);
@@ -161,7 +163,7 @@
             this.toolStripMenuItem_编辑此行.Image = global::Server.Properties.Resources.Graphic_designer;
             this.toolStripMenuItem_编辑此行.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem_编辑此行.Name = "toolStripMenuItem_编辑此行";
-            this.toolStripMenuItem_编辑此行.Size = new System.Drawing.Size(184, 54);
+            this.toolStripMenuItem_编辑此行.Size = new System.Drawing.Size(168, 54);
             this.toolStripMenuItem_编辑此行.Text = "编辑此行";
             this.toolStripMenuItem_编辑此行.Visible = false;
             this.toolStripMenuItem_编辑此行.Click += new System.EventHandler(this.toolStripMenuItem_编辑此行_Click);
@@ -171,7 +173,7 @@
             this.toolStripMenuItem_print.Image = global::Server.Properties.Resources.printer;
             this.toolStripMenuItem_print.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem_print.Name = "toolStripMenuItem_print";
-            this.toolStripMenuItem_print.Size = new System.Drawing.Size(184, 54);
+            this.toolStripMenuItem_print.Size = new System.Drawing.Size(168, 54);
             this.toolStripMenuItem_print.Text = "打印此条码";
             this.toolStripMenuItem_print.ToolTipText = "打印本条记录条码";
             this.toolStripMenuItem_print.Click += new System.EventHandler(this.print_Click);
@@ -181,7 +183,7 @@
             this.toolStripMenuItem_打印整张表.Image = global::Server.Properties.Resources.ooopic_1458911634;
             this.toolStripMenuItem_打印整张表.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem_打印整张表.Name = "toolStripMenuItem_打印整张表";
-            this.toolStripMenuItem_打印整张表.Size = new System.Drawing.Size(184, 54);
+            this.toolStripMenuItem_打印整张表.Size = new System.Drawing.Size(168, 54);
             this.toolStripMenuItem_打印整张表.Text = "打印整张表";
             this.toolStripMenuItem_打印整张表.Visible = false;
             this.toolStripMenuItem_打印整张表.Click += new System.EventHandler(this.toolStripMenuItem_打印整张表_Click);
@@ -191,7 +193,7 @@
             this.Delete撤回此入库ToolStripMenuItem.Image = global::Server.Properties.Resources.Diagram;
             this.Delete撤回此入库ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.Delete撤回此入库ToolStripMenuItem.Name = "Delete撤回此入库ToolStripMenuItem";
-            this.Delete撤回此入库ToolStripMenuItem.Size = new System.Drawing.Size(184, 54);
+            this.Delete撤回此入库ToolStripMenuItem.Size = new System.Drawing.Size(168, 54);
             this.Delete撤回此入库ToolStripMenuItem.Text = "撤回此入库";
             this.Delete撤回此入库ToolStripMenuItem.Click += new System.EventHandler(this.撤回此入库ToolStripMenuItem_Click);
             // 
@@ -200,7 +202,7 @@
             this.撤回此出库ToolStripMenuItem.Image = global::Server.Properties.Resources.Synchronize;
             this.撤回此出库ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.撤回此出库ToolStripMenuItem.Name = "撤回此出库ToolStripMenuItem";
-            this.撤回此出库ToolStripMenuItem.Size = new System.Drawing.Size(184, 54);
+            this.撤回此出库ToolStripMenuItem.Size = new System.Drawing.Size(168, 54);
             this.撤回此出库ToolStripMenuItem.Text = "撤回此出库";
             this.撤回此出库ToolStripMenuItem.Click += new System.EventHandler(this.撤回此出库ToolStripMenuItem_Click);
             // 

@@ -2,7 +2,6 @@ D:\Server\Server\bin\Release\Server.exe.config
 D:\Server\Server\bin\Release\Server.exe
 D:\Server\Server\bin\Release\Server.pdb
 D:\Server\Server\bin\Release\Seagull.BarTender.Print.xml
-D:\Server\Server\obj\Release\Server.csprojResolveAssemblyReference.cache
 D:\Server\Server\obj\Release\Server.AddLB.resources
 D:\Server\Server\obj\Release\Server.AddXL.resources
 D:\Server\Server\obj\Release\Server.AddZL.resources

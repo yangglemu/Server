@@ -507,5 +507,30 @@ namespace Server
             }            
             MessageBox.Show("删除出库明细,及修改库存数据成功！", "提示：", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
+
+        private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
+        {                        
+        }
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (this.dataGridView.RowCount < 1) return;
+
+                if (!this.Text.Contains("【入库明细--工具】"))
+                    return;
+
+                DataGridViewRow row = this.dataGridView.CurrentRow;
+                string date = row.Cells["日期"].Value.ToString();
+                string sql = "delete from rk_temp where rq='" + date + "'";
+                IDbCommand command = Form_main.Command;
+                command.CommandText = sql;
+                int ret = command.ExecuteNonQuery();
+                if (ret != 1)
+                    throw new Exception("操作数据库出错, delete from rk_temp");
+                this.dataGridView.Rows.Remove(row);
+            }
+        }
     }
 }
