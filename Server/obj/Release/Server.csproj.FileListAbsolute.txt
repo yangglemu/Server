@@ -37,3 +37,4 @@ D:\Server\Server\obj\Release\Server.Form_zp_ck.resources
 D:\Server\Server\obj\Release\Server.Form_cx_one.resources
 D:\Server\Server\bin\Release\Seagull.BarTender.Print.dll
 D:\Server\Server\obj\Release\Server.Form_Edit_rk_temp.resources
+D:\Server\Server\obj\Release\Server.csprojResolveAssemblyReference.cache

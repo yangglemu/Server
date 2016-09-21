@@ -39,8 +39,9 @@ namespace Server
                 link.Close();
                 Application.Run(mf);
             }
-            catch
+            catch(MySqlException)
             {
+                //MessageBox.Show(se.Message+"\r\n"+se.Source);
                 MessageBox.Show("连接到门店电脑数据库时错误！\r\n网络是否正常？", "连接错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
                 return;

@@ -7,9 +7,9 @@ using System.Resources;
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Server")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("by yangglemu")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sky123.Org")]
+[assembly: AssemblyCompany("Sunshine")]
 [assembly: AssemblyProduct("Server")]
 [assembly: AssemblyCopyright("Copyright © Sky123.Org 2014")]
 [assembly: AssemblyTrademark("")]
