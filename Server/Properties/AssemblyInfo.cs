@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sunshine")]
 [assembly: AssemblyProduct("Server")]
-[assembly: AssemblyCopyright("Copyright © Sky123.Org 2014")]
+[assembly: AssemblyCopyright("Copyright © yangglemu@qq.com 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

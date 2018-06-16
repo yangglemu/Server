@@ -19,7 +19,6 @@ namespace Server
         {
             InitializeComponent();
             command = Form_main.Command;
-            this.Icon = Properties.Resources.yuan; ;
         }
         private bool CheckSZ(string sz)
         {

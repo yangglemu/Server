@@ -21,7 +21,6 @@ namespace Server
             InitializeComponent();
             command = Form_main.Command;
             yy = this.radioButton_th.Text;
-            this.Icon = Properties.Resources.yuan;
         }
 
         private void textBox_tm_KeyDown(object sender, KeyEventArgs e)

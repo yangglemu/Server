@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddLB));
             this.textBox1条码 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox2品名 = new System.Windows.Forms.TextBox();
@@ -100,10 +101,12 @@
             this.Controls.Add(this.textBox1条码);
             this.Controls.Add(this.button添加);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddLB";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "添加类别";
             this.Load += new System.EventHandler(this.AddLB_Load);
             this.groupBox1.ResumeLayout(false);

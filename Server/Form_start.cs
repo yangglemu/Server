@@ -19,7 +19,6 @@ namespace Server
         public Form_start()
         {
             InitializeComponent();
-            this.Icon = Properties.Resources.yuan; 
         }
 
         private void Form_start_Load(object sender, EventArgs e)
@@ -27,7 +26,7 @@ namespace Server
             conn = Form_main.Connection;
             comm = new MySqlCommand();
             comm.Connection = conn;
-            comm.CommandText = "select bh,xm,mm,qx from worker";
+            comm.CommandText = "select bh,xm,mm,qx from worker where `show`";
             MySqlDataReader dr = comm.ExecuteReader();
             while(dr.Read())
             {

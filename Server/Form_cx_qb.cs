@@ -18,7 +18,6 @@ namespace Server
         {
             InitializeComponent();
             command = Form_main.Command;
-            this.Icon = Properties.Resources.yuan;
         }
 
         private void textBox_xzq_KeyDown(object sender, KeyEventArgs e)

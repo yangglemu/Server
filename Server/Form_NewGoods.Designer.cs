@@ -176,9 +176,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(271, 236);
+            this.button1.Location = new System.Drawing.Point(279, 225);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 39);
+            this.button1.Size = new System.Drawing.Size(105, 39);
             this.button1.TabIndex = 8;
             this.button1.Text = "确定";
             this.button1.UseVisualStyleBackColor = true;
@@ -206,9 +206,9 @@
             this.groupBox1.Controls.Add(this.textBox_ghs);
             this.groupBox1.Controls.Add(this.textBox_jj);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(15, 12);
+            this.groupBox1.Location = new System.Drawing.Point(23, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(612, 196);
+            this.groupBox1.Size = new System.Drawing.Size(616, 196);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             // 
@@ -287,7 +287,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 302);
+            this.ClientSize = new System.Drawing.Size(662, 283);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

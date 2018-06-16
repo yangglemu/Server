@@ -24,85 +24,68 @@ namespace Server
         public Form_Print_BarCode()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.Icon = Properties.Resources.yuan;
             this.textBox1_tm.Select();
             command = Form_main.Command;
-            this.ShowInTaskbar = false;
         }
 
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)//条码
+        public bool CheckTM()
         {
-            if (e.KeyCode == Keys.Return)
+            tm = this.textBox1_tm.Text.Trim();///////tm
+            if (tm.Length < 1 || tm.Length > 15)
+                return false;
+            string sql = string.Format("select pm,sj from goods where tm='{0}'", tm);
+            command.CommandText = sql;
+            MySqlDataReader dr = command.ExecuteReader();
+            while (dr.Read())
             {
-                tm = this.textBox1_tm.Text.Trim();///////tm
-                if (tm.Length < 8 && tm.Length > 15)
-                    return;
-                string sql = string.Format("select pm,sj from goods where tm='{0}'", tm);
-                command.CommandText = sql;
-                MySqlDataReader dr = command.ExecuteReader();
-                while (dr.Read())
-                {
-                    this.pm = this.textBox_pm.Text = dr.GetString(0);//pm
-                    this.dj = dr.GetFloat(1).ToString("N2");/////////////dj
-                    this.dj = this.textBox3_dj.Text = "￥" + dj;
-                }
-                dr.Close();
-                if (this.textBox_pm.TextLength == 0)
-                {
-                    MessageBox.Show("不存在的条码！");
-                    this.textBox1_tm.Select();
-                    this.textBox1_tm.SelectAll();
-                    return;
-                }
-                this.textBox4_fs.Select();
-                this.textBox4_fs.SelectAll();
+                this.pm = this.textBox_pm.Text = dr.GetString(0);//pm
+                this.dj = dr.GetFloat(1).ToString("N2");/////////////dj
+                this.dj = this.textBox3_dj.Text = "￥" + dj;
+            }
+            dr.Close();
+            if (this.textBox_pm.TextLength == 0)
+            {
+                MessageBox.Show("不存在的条码！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.textBox1_tm.Select();
+                this.textBox1_tm.SelectAll();
+                return false;
+            }
+            this.textBox1_tm.ReadOnly = true;
+            this.textBox4_fs.Select();
+            this.textBox4_fs.SelectAll();
+            return true;
+        }
+        public void textBox1_KeyDown(object sender, KeyEventArgs e)//条码
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Return:
+                    CheckTM();
+                    break;
+                case Keys.Escape:
+                    this.Close();
+                    break;
+                default:
+                    break;
             }
         }
 
         private void textBox4_fs_KeyDown(object sender, KeyEventArgs e)
         {
-            /*
-            if (!CheckFS())
+            switch (e.KeyCode)
             {
-                this.textBox4_fs.Select();
-                this.textBox4_fs.SelectAll();
-                return;
-            }
-            if (e!=null && e.KeyCode == Keys.Return)
-            {                
-                this.textBox1_hh.Select();
-            }
-             */
-            if (!CheckFS())
-            {
-                return;
-            }
-            if (e != null && e.KeyCode == Keys.Return)
-            {
-                this.textBox1_hh.Select();
+                case Keys.Escape:
+                    Close();
+                    break;
+                case Keys.Return:
+                    if (CheckFS()) this.textBox1_hh.Select();
+                    break;
+                default:
+                    break;
             }
         }
         private bool CheckFS()
         {
-            /*
-            if (!int.TryParse(this.textBox4_fs.Text.Trim(), out fs))//fs
-            {
-                MessageBox.Show("输入打印份数出错！");
-                return false;
-            }
-            if (fs < 1)
-            {
-                MessageBox.Show("打印份数必须大于等于1");
-                return false;
-            }
-            if (fs > 9)
-            {
-                if (MessageBox.Show("打印副本过多，是否继续？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button2) != DialogResult.OK)
-                    return false;
-            }
-            return true;
-             * */
             int m = 0;
             int.TryParse(this.textBox4_fs.Text.Trim(), out m);
             if (m < 1)
@@ -110,7 +93,7 @@ namespace Server
                 this.textBox4_fs.Select();
                 return false;
             }
-            if (m > 9)
+            if (m > 29)
             {
                 if (MessageBox.Show("打印副本过多，是否继续？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 {
@@ -149,6 +132,7 @@ namespace Server
             this.textBox1_tm.SelectAll();
             this.tm = this.pm = this.dj = this.hh = "";
             this.fs = 1;
+            this.textBox1_tm.ReadOnly = false;
         }
 
         private void Form_Print_BarCode_FormClosing(object sender, FormClosingEventArgs e)
@@ -157,8 +141,36 @@ namespace Server
 
         private void textBox1_hh_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Return)
-                this.button1_print.Select();
+            switch (e.KeyCode)
+            {
+                case Keys.Return:
+                    this.button1_print.Select();
+                    break;
+                case Keys.Escape:
+                    Close();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+        public bool add_print(string tm)
+        {
+            this.textBox1_tm.Text = tm;
+            return CheckTM();
+        }
+
+        private void button1_print_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    Close();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

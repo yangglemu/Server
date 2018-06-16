@@ -33,6 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_MDIChild));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this._toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -45,10 +46,14 @@
             this.toolStripMenuItem_打印整张表 = new System.Windows.Forms.ToolStripMenuItem();
             this.Delete撤回此入库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.撤回此出库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip_备注 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.编辑ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1_print.SuspendLayout();
+            this.contextMenuStrip_备注.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -206,6 +211,32 @@
             this.撤回此出库ToolStripMenuItem.Text = "撤回此出库";
             this.撤回此出库ToolStripMenuItem.Click += new System.EventHandler(this.撤回此出库ToolStripMenuItem_Click);
             // 
+            // contextMenuStrip_备注
+            // 
+            this.contextMenuStrip_备注.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.删除ToolStripMenuItem,
+            this.编辑ToolStripMenuItem});
+            this.contextMenuStrip_备注.Name = "contextMenuStrip_备注";
+            this.contextMenuStrip_备注.Size = new System.Drawing.Size(117, 80);
+            // 
+            // 删除ToolStripMenuItem
+            // 
+            this.删除ToolStripMenuItem.Image = global::Server.Properties.Resources.Erase;
+            this.删除ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(116, 38);
+            this.删除ToolStripMenuItem.Text = "删除";
+            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除备注ToolStripMenuItem_Click);
+            // 
+            // 编辑ToolStripMenuItem
+            // 
+            this.编辑ToolStripMenuItem.Image = global::Server.Properties.Resources.Feather;
+            this.编辑ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem";
+            this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(116, 38);
+            this.编辑ToolStripMenuItem.Text = "编辑";
+            this.编辑ToolStripMenuItem.Click += new System.EventHandler(this.编辑备注ToolStripMenuItem_Click);
+            // 
             // Form_MDIChild
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -213,6 +244,7 @@
             this.ClientSize = new System.Drawing.Size(834, 362);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_MDIChild";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Activated += new System.EventHandler(this.Form_MDIChild_Activated);
@@ -226,6 +258,7 @@
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1_print.ResumeLayout(false);
+            this.contextMenuStrip_备注.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,5 +278,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_删除此行;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_编辑此行;
         private System.Windows.Forms.ToolStripMenuItem 撤回此出库ToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip_备注;
+        private System.Windows.Forms.ToolStripMenuItem 删除ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 编辑ToolStripMenuItem;
     }
 }

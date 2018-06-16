@@ -18,7 +18,6 @@ namespace Server
         public Form_zp_rk()
         {
             InitializeComponent();
-            this.Icon = Properties.Resources.yuan; ;
             command = Form_main.Command;
             this.textBox_tm.Select();
         }

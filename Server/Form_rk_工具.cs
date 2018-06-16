@@ -13,7 +13,6 @@ namespace Server
         public Form_rk_工具()
         {            
             InitializeComponent();
-            this.Icon = Properties.Resources.yuan; 
         }
 
         override protected string GetDatabaseName()

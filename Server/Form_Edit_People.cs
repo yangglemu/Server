@@ -24,7 +24,6 @@ namespace Server
             connection = Form_main.Connection;
             command = new MySqlCommand();
             command.Connection = connection;
-            this.Icon = Properties.Resources.yuan;
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)

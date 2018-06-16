@@ -30,8 +30,6 @@ namespace Server
         public Form_Input_fs(string tm, string pm, string sj)
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.Icon = Properties.Resources.yuan;
             this.textBox1_副本份数.Select();
             this.textBox1_副本份数.SelectAll();
             _printdata = new PrintData();
@@ -63,7 +61,7 @@ namespace Server
                 this.textBox1_副本份数.Select();
                 return false;
             }
-            if (m > 9)
+            if (m > 29)
             {
                 if (MessageBox.Show("打印副本过多，是否继续？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 {

@@ -34,7 +34,6 @@ namespace Server
             }
         }
 
-        static MySqlConnection connection;
         public static Engine engine;
         public static LabelFormatDocument _labeldoc;
         public static LabelFormatDocument _labeldoc2;
@@ -48,6 +47,7 @@ namespace Server
                 if (_labeldoc != null) _labeldoc.Close(SaveOptions.DoNotSaveChanges);
                 Seagull.BarTender.Print.Messages msgs;
                 _labeldoc = engine.Documents.Open(_lf, out msgs);
+                _labeldoc.PrintSetup.PrinterName = Form_main.printer;
                 return _labeldoc;
             }
         }
@@ -58,9 +58,12 @@ namespace Server
                 if (_labeldoc2 != null) _labeldoc2.Close(SaveOptions.DoNotSaveChanges);
                 Seagull.BarTender.Print.Messages msgs;
                 _labeldoc2 = engine.Documents.Open(_lf2, out msgs);
+                _labeldoc2.PrintSetup.PrinterName = Form_main.printer;
                 return _labeldoc2;
             }
         }
+
+        static MySqlConnection connection;
 
         public static MySqlConnection Connection
         {
@@ -72,7 +75,9 @@ namespace Server
         public static MySqlCommand Command
         {
             get { return command; }
+            set { command = value; }
         }
+
         DataGridView dataGridView1;
 
         public DataGridView DataGridView1
@@ -90,12 +95,47 @@ namespace Server
         public Form_main()
         {
             InitializeComponent();
-            this.Icon = Properties.Resources.yuan;
+        }
+
+        private void Form_main_Load(object sender, EventArgs e)
+        {
             this.EnabledPrint = false;
             this.toolStripMenuItem_真实入库.Enabled = false;
-            Form_main.command = connection.CreateCommand();
-            if (connection.State != ConnectionState.Open)
-                connection.Open();
+        }
+
+        private void Form_main_Shown(object sender, EventArgs e)
+        {
+            Form_start f = new Form_start();
+            if (f.ShowDialog(this) != DialogResult.OK)
+            {
+                this.Close();
+                return;
+            }
+            this.toolStripStatusLabel1.Text = "当前操作员：" + this.worker.xm;
+            this.backgroundWorker1.DoWork += new DoWorkEventHandler(this.GetPrinter);
+            this.backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void GetPrinter(object sender, DoWorkEventArgs e)
+        {
+            foreach (string s in PrinterSettings.InstalledPrinters)
+            {
+                if (s.Equals(Form_main.printer))
+                {
+                    try
+                    {
+                        Form_main.engine = new Seagull.BarTender.Print.Engine(true);
+                        _lf = new LabelFormat(Application.StartupPath + "\\mylabel.btw");
+                        _lf2 = new LabelFormat(Application.StartupPath + "\\mylabel2.btw");
+                        this.SetPrinterToEnable();
+                    }
+                    catch (Exception exp)
+                    {
+                        MessageBox.Show(exp.Message);
+                    }
+                    break;
+                }
+            }
         }
 
         private void 新建ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -466,42 +506,20 @@ namespace Server
             f.Show();
         }
 
-        private void Form_main_Shown(object sender, EventArgs e)
+        private void SetPrinterToEnable()
         {
-            this.backgroundWorker1 = new BackgroundWorker();
-            this.backgroundWorker1.DoWork += new DoWorkEventHandler(this.GetPrinter);
-            this.backgroundWorker1.RunWorkerAsync(this);
-            Form_start f = new Form_start();
-            if (f.ShowDialog(this) != DialogResult.OK)
+            if (this.InvokeRequired)
             {
-                this.Close();
-                return;
+                this.Invoke(new Action(SetPrinterToEnable));
             }
-            this.toolStripStatusLabel1.Text = "当前操作员：" + this.worker.xm;
-        }
-
-        private void GetPrinter(object sender, DoWorkEventArgs e)
-        {
-            PrintDocument pd = new PrintDocument();
-            string s = pd.PrinterSettings.PrinterName;
-            if (!s.Equals(Form_main.printer))
-                return;
-            try
+            else
             {
-                Form_main.engine = new Seagull.BarTender.Print.Engine(true);
-                _lf = new LabelFormat("d:/bartender/mylabel.btw");
-                _lf2 = new LabelFormat("d:/bartender/mylabel2.btw");
                 this.EnabledPrint = true;
-            }
-            catch (PrintEngineException)
-            {
-                this.EnabledPrint = false;
             }
         }
 
         private void 按日统计_toolStripMenuItem4_Click(object sender, EventArgs e)
         {
-            //if (this.worker.qx == "低") return;
             string start, end;
             end = DateTime.Today.ToShortDateString();
             start = DateTime.Today.AddDays(-29).ToShortDateString();
@@ -693,16 +711,12 @@ namespace Server
                 return;
             }
             this.toolStripStatusLabel1.Text = "当前操作员：" + this.worker.xm;
-            //this.本日时段ToolStripMenuItem_Click(null, null);
         }
 
         private void 修改ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.worker.qx == "低")
                 return;
-
-            //Form_goods_edit f = new Form_goods_edit();
-            //f.ShowDialog(this);
         }
 
         private void 重置系统ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1033,7 +1047,7 @@ namespace Server
 
         private void 员工浏览toolStripMenuItem11_Click(object sender, EventArgs e)
         {
-            string s = "select bh as 编号,xm as 姓名,dh as 手机,qx as 权限,rq as 创建时间 from worker order by rq";
+            string s = "select bh as 编号,xm as 姓名,dh as 手机,qx as 权限,`show` as 在职,rq as 创建时间 from worker order by rq";
             command.CommandText = s;
             DataTable dt = new DataTable();
             MySqlDataAdapter a = new MySqlDataAdapter(command);
@@ -1047,7 +1061,34 @@ namespace Server
             child.dataGridView.DataSource = dt;
             child.toolStripStatusLabel1.Text = "共【" + dt.Rows.Count.ToString();
             child.toolStripStatusLabel1.Text += "】员工";
-            this.dataGridView1.Columns["创建时间"].DefaultCellStyle.Format = "yyyy-MM-dd HH:mm:ss";
+            child.dataGridView.Columns["创建时间"].DefaultCellStyle.Format = "yyyy-MM-dd HH:mm:ss";
+            child.dataGridView.Columns[4].ValueType = typeof(bool);
+            var cc = child.dataGridView.Columns[4] as DataGridViewCheckBoxColumn;
+            cc.TrueValue = 1;
+            cc.FalseValue = 0;
+            child.dataGridView.ReadOnly = false;
+            foreach (DataGridViewColumn dc in child.dataGridView.Columns)
+            {
+                if (!(dc.Equals(cc))) dc.ReadOnly = true;
+            }
+            child.dataGridView.CurrentCellDirtyStateChanged += (obj, arg) =>
+            {
+                if (child.dataGridView.IsCurrentCellDirty)
+                {
+                    child.dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                }
+            };
+            child.dataGridView.CellValueChanged += (obj, arg) =>
+            {
+                if (arg.ColumnIndex == 4)
+                {
+                    var bh = child.dataGridView.Rows[arg.RowIndex].Cells[0].Value.ToString();
+                    var show = (bool)child.dataGridView.Rows[arg.RowIndex].Cells[4].Value;
+                    var sql = string.Format("update worker set `show`={0} where bh='{1}'", show ? 1 : 0, bh);
+                    command.CommandText = sql;
+                    command.ExecuteNonQuery();
+                }
+            };
             this.SetColumnsWidth();
             child.Show();
         }
@@ -1264,16 +1305,12 @@ namespace Server
 
         private void Form_main_FormClosed(object sender, FormClosedEventArgs e)
         {
+            connection.Close();
             if (Form_main.engine != null)
             {
                 Form_main.engine.Documents.CloseAll(SaveOptions.DoNotSaveChanges);
-                //for (int i = 0; i < engine.Documents.Count;i++ )
-                //{
-                //engine.Documents[i].Close(SaveOptions.DoNotSaveChanges);
-                //}
                 Form_main.engine.Stop();
             }
-            connection.Close();
         }
 
         private void 导入盘点数据ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1440,8 +1477,7 @@ namespace Server
                 }
 
                 MessageBox.Show(string.Format("共删除{0}笔交易，修正库存{1}处", idb, ikc),
-                    "提示",
-                    MessageBoxButtons.OK);
+                    "提示", MessageBoxButtons.OK);
             }
         }
 
@@ -1561,16 +1597,6 @@ namespace Server
             Form_SelectDate sd = new Form_SelectDate();
             if (sd.ShowDialog(this) != DialogResult.OK)
                 return;
-            /*
-            string s = "select fl.dnm as 大类,fl.pm as 品名,";
-            s += "sum(sale_mx.sl) as 数量,sum(sale_mx.je) as 金额 ";
-            s += "from sale_mx join(sale_db,fl) ";
-            s += "on(sale_db.djh=sale_mx.djh and ";
-            s += "fl.dnm=substring(sale_mx.tm,1,2)) ";
-            s += string.Format("where date(sale_db.rq)>='{0}' ", sd.dateTimePicker1.Value.ToShortDateString());
-            s += string.Format("and date(sale_db.rq)<='{0}'", sd.dateTimePicker2.Value.ToShortDateString());
-            s += "group by fl.dnm";
-            **/
             string s = "select fl.dnm as 大类,fl.pm as 品名,";
             s += "sum(sale_mx.sl) as 数量,sum(sale_mx.je) as 金额 ";
             s += "from sale_mx join(sale_db) using(djh) ";
@@ -1696,11 +1722,23 @@ namespace Server
 
         private void 入库明细ToolStripMenuItem_Click_工具(object sender, EventArgs e)
         {
-            // if (this.worker.qx == "低") return;
-            DateTime today = DateTime.Now;
+            if (this.worker.qx == "低") return;
+            DateTime start, end;
+            if (sender is ToolStripButton)
+            {
+                start = end = DateTime.Now;
+            }
+            else
+            {
+                Form_SelectDate sd = new Form_SelectDate();
+                if (sd.ShowDialog(this) != DialogResult.OK)
+                    return;
+                start = sd.dateTimePicker1.Value.Date;
+                end = sd.dateTimePicker2.Value.Date;
+            }
             string s = string.Format("select rk_temp.tm as 条码,goods.pm as 品名,rk_temp.sl as 数量,goods.sj as 售价,rk_temp.sl*goods.sj as 金额,rk_temp.rq as 日期,rk_temp.czy as 操作员 from rk_temp join goods using(tm) where date(rk_temp.rq)>='{0}' and date(rk_temp.rq)<='{1}' order by rk_temp.rq asc",
-                today.ToShortDateString(),
-                today.ToShortDateString());
+                start.ToShortDateString(),
+                end.ToShortDateString());
             command.CommandText = s;
             MySqlDataAdapter a = new MySqlDataAdapter(command);
             DataTable dt = new DataTable();
@@ -1708,7 +1746,7 @@ namespace Server
 
             Form_MDIChild child = new Form_MDIChild();
             child.MdiParent = this;
-            child.Text = today.ToShortDateString() + "【入库明细--工具】";
+            child.Text = start.ToShortDateString() + "--" + end.ToShortDateString() + "【入库明细--工具】";
             child.items.AddRange(new string[] { "售价", "条码", "品名" });
             child.dataGridView.DataSource = dt;
             this.dataGridView1 = child.dataGridView;
@@ -1730,11 +1768,25 @@ namespace Server
 
         private void 入库汇总ToolStripMenuItem_Click_工具(object sender, EventArgs e)
         {
-            // if (this.worker.qx == "低") return;
-            var today = DateTime.Now;
+            if (this.worker.qx == "低") return;
+
+            DateTime start, end;
+            if (sender is ToolStripButton)
+            {
+                start = end = DateTime.Now;
+            }
+            else
+            {
+                Form_SelectDate sd = new Form_SelectDate();
+                if (sd.ShowDialog(this) != DialogResult.OK)
+                    return;
+                start = sd.dateTimePicker1.Value.Date;
+                end = sd.dateTimePicker2.Value.Date;
+            }
+
             string s = string.Format("select rk_temp.tm as 条码,goods.pm as 品名,sum(rk_temp.sl) as 数量,goods.sj as 售价,goods.sj*sum(rk_temp.sl) as 金额,rk_temp.rq as 日期,rk_temp.czy as 操作员 from rk_temp join goods using(tm) where date(rk_temp.rq)>='{0}' and date(rk_temp.rq)<='{1}' group by rk_temp.tm order by rk_temp.rq asc",
-                today.ToShortDateString(),
-                today.ToShortDateString());
+                start.ToShortDateString(),
+                end.ToShortDateString());
             command.CommandText = s;
             MySqlDataAdapter a = new MySqlDataAdapter(command);
             DataTable dt = new DataTable();
@@ -1742,7 +1794,7 @@ namespace Server
 
             Form_MDIChild child = new Form_MDIChild();
             child.MdiParent = this;
-            child.Text = today.ToShortDateString() + "【入库汇总--工具】";
+            child.Text = start.ToShortDateString() + "--" + end.ToShortDateString() + "【入库汇总--工具】";
             child.items.AddRange(new string[] { "条码", "品名" });
             child.dataGridView.DataSource = dt;
             this.dataGridView1 = child.dataGridView;
@@ -1928,43 +1980,41 @@ namespace Server
             if (this.worker.qx != "高")
                 return;
 
-            if (MessageBox.Show("确定要将当前表格的数据累加到库存上吗？",
-                "警告",
-                MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Asterisk,
-                MessageBoxDefaultButton.Button2) != DialogResult.OK)
-                return;
             Form_MDIChild mdi = this.ActiveMdiChild as Form_MDIChild;
             if (mdi == null)
+                throw new NullReferenceException();
+
+            if (!(mdi.Text.Contains("【入库明细--工具】") || mdi.Text.Contains("【入库汇总--工具】")))
                 return;
 
             this.dataGridView1 = mdi.dataGridView;
             if (this.dataGridView1.Rows.Count < 1)
                 return;
-            if (MessageBox.Show("确定要将" + dataGridView1.Rows.Count + "条数据进行入库操作吗？\n这是不可逆的操作，请谨慎~"
-                , "警告",
+            if (MessageBox.Show("确定要将" + dataGridView1.Rows.Count + "条数据进行入库操作吗？"
+                , "提示",
                 MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning,
+                MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
             string sql;
             string tm, sl, rq;
             MySqlTransaction tr = Connection.BeginTransaction();
-            foreach (DataGridViewRow row in this.dataGridView1.Rows)
-            {
-                tm = row.Cells["条码"].Value.ToString();
-                sl = row.Cells["数量"].Value.ToString();
-                rq = row.Cells["日期"].Value.ToString();
-                sql = string.Format("insert into rk(rq,tm,czy,sl) values('{0}','{1}','{2}',{3})",
-                    rq, tm, worker.bh, sl);
-                command.CommandText = sql;
-                command.ExecuteNonQuery();
-                sql = string.Format("update goods set kc=kc+{0} where tm='{1}'", sl, tm);
-                command.CommandText = sql;
-                command.ExecuteNonQuery();
-            }
             try
             {
+                foreach (DataGridViewRow row in this.dataGridView1.Rows)
+                {
+                    tm = row.Cells["条码"].Value.ToString();
+                    sl = row.Cells["数量"].Value.ToString();
+                    rq = row.Cells["日期"].Value.ToString();
+                    sql = string.Format("insert into rk(rq,tm,czy,sl) values('{0}','{1}','{2}',{3})",
+                        rq, tm, worker.bh, sl);
+                    command.CommandText = sql;
+                    command.ExecuteNonQuery();
+                    sql = string.Format("update goods set kc=kc+{0} where tm='{1}'", sl, tm);
+                    command.CommandText = sql;
+                    command.ExecuteNonQuery();
+                }
+
                 tr.Commit();
             }
             catch
@@ -1982,8 +2032,6 @@ namespace Server
 
         private void toolStripButton_刷新_Click(object sender, EventArgs e)
         {
-            //if (this.MdiChildren.Length == 0)
-            //    return;
             Form_MDIChild mdi = this.ActiveMdiChild as Form_MDIChild;
             if (mdi != null)
                 mdi.RefreshData();
@@ -2071,7 +2119,6 @@ namespace Server
             if (sd.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            // if (this.worker.qx == "低") return;
             string s = string.Format("select zp_rk.tm as 条码," +
             "zp_goods.pm as 品名," +
             "zp_rk.sl as 数量," +
@@ -2207,11 +2254,6 @@ namespace Server
             child.Show();
         }
 
-        private void Form_main_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void toolStripButton_本日入库明细_Click(object sender, EventArgs e)
         {
             var now = DateTime.Now.ToShortDateString();
@@ -2244,6 +2286,62 @@ namespace Server
             }
             child.toolStripStatusLabel1.Text = "共【" + dt.Rows.Count + "】条记录，【" + sumsl + "】件商品，【" + je.ToString("N2") + "】元";
             child.Show();
+        }
+
+        private void 添加备注ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var input = new Form_Input();
+            input.Icon = Server.Properties.Resources.yuan;
+            if (input.ShowDialog() != DialogResult.OK) return;
+
+            var date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var s = string.Format("insert into bz(rq,nr) values('{0}','{1}')", date, input.Input);
+            command.CommandText = s;
+            try
+            {
+                command.ExecuteNonQuery();
+                MessageBox.Show("添加备注成功！");
+            }
+            catch (MySqlException me)
+            {
+                MessageBox.Show("添加备注失败！", me.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void 查看备注ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var sd = new Form_SelectDate();
+            if (sd.ShowDialog(this) != DialogResult.OK) return;
+            var start = sd.dateTimePicker1.Value.ToShortDateString();
+            var end = sd.dateTimePicker2.Value.ToShortDateString();
+
+            var s = string.Format("select rq as 日期,nr as 内容 from bz where date(rq)>='{0}' and date(rq)<='{1}'", start, end);
+            command.CommandText = s;
+            var a = new MySqlDataAdapter(command);
+            var dt = new DataTable();
+            a.Fill(dt);
+
+            var child = new Form_MDIChild();
+            child.Text = "查看备注";
+            child.MdiParent = this;
+            child.toolStripStatusLabel1.Text = "日期：" + start + "--" + end;
+            child.dataGridView.DataSource = dt;
+            child.dataGridView.Columns["日期"].DefaultCellStyle.Format = "yyyy-MM-dd HH:mm:ss";
+
+            child.dataGridView.Columns[0].Width = 160;
+            child.dataGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            child.dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            child.Show();
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            this.添加备注ToolStripMenuItem_Click(null, null);
+        }
+
+        private void toolStripButton7_Click(object sender, EventArgs e)
+        {
+            this.查看备注ToolStripMenuItem_Click(null, null);
         }
     }
 }

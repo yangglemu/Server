@@ -40,8 +40,6 @@ namespace Server
         public Form_DatePicker()
         {
             InitializeComponent();
-
-            this.Icon = Properties.Resources.yuan;
         }
 
         private void button1_Click(object sender, EventArgs e)

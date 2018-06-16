@@ -14,15 +14,11 @@ namespace Server
     public partial class Form_jfcz : Form
     {
         int xyjf;
-        MySqlConnection connection;
         MySqlCommand command;
         public Form_jfcz()
         {
             InitializeComponent();
-            connection = Form_main.Connection;
-            command = new MySqlCommand();
-            command.Connection = connection;
-            this.Icon = Properties.Resources.yuan; ;
+            command = Form_main.Command;
         }
 
         private bool CheckSL()
@@ -141,7 +137,7 @@ namespace Server
 
             int syjf = this.xyjf + zj;
 
-            MySqlTransaction tr = connection.BeginTransaction();
+            MySqlTransaction tr = command.Connection.BeginTransaction();
             string s = "insert into jfcz(bh,cz,czjf,syjf,czyy,rq,czy) values('";
             s += textBox_hybh.Text + "', '";
             s += strZJ + "', '";

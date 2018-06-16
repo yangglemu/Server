@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_jfcz));
             this.label1 = new System.Windows.Forms.Label();
             this.textBox_hybh = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox_zj = new System.Windows.Forms.ComboBox();
             this.textBox_xm = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox_czyy = new System.Windows.Forms.TextBox();
@@ -40,7 +42,6 @@
             this.textBox_xyjf = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.comboBox_zj = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,6 +80,17 @@
             this.groupBox1.Size = new System.Drawing.Size(237, 218);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // comboBox_zj
+            // 
+            this.comboBox_zj.FormattingEnabled = true;
+            this.comboBox_zj.Items.AddRange(new object[] {
+            "-",
+            "+"});
+            this.comboBox_zj.Location = new System.Drawing.Point(81, 139);
+            this.comboBox_zj.Name = "comboBox_zj";
+            this.comboBox_zj.Size = new System.Drawing.Size(34, 20);
+            this.comboBox_zj.TabIndex = 10;
             // 
             // textBox_xm
             // 
@@ -158,17 +170,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // comboBox_zj
-            // 
-            this.comboBox_zj.FormattingEnabled = true;
-            this.comboBox_zj.Items.AddRange(new object[] {
-            "-",
-            "+"});
-            this.comboBox_zj.Location = new System.Drawing.Point(81, 139);
-            this.comboBox_zj.Name = "comboBox_zj";
-            this.comboBox_zj.Size = new System.Drawing.Size(34, 20);
-            this.comboBox_zj.TabIndex = 10;
-            // 
             // Form_jfcz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -177,6 +178,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form_jfcz";

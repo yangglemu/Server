@@ -18,9 +18,7 @@ namespace Server
         public AddXL()
         {
             InitializeComponent();
-            this.Icon = Properties.Resources.yuan;
             this.command = Form_main.Command;
-            this.StartPosition = FormStartPosition.CenterParent;
         }
 
         protected void AddXL_Load(object sender, EventArgs e)

@@ -18,9 +18,7 @@ namespace Server
         public AddZL()
         {
             InitializeComponent();
-            this.Icon = Properties.Resources.yuan;
             this.command = Form_main.Command;
-            this.StartPosition = FormStartPosition.CenterParent;
         }
 
         protected void AddZL_Load(object sender, EventArgs e)

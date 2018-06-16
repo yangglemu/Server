@@ -13,21 +13,17 @@ namespace Server
 {
     public partial class Form_goods_edit : Form
     {
-        MySqlConnection connection;
         MySqlCommand command;
         public Form_goods_edit()
         {
             InitializeComponent();
 
-            connection = Form_main.Connection;
-            command = new MySqlCommand();
-            command.Connection = connection;
+            command = Form_main.Command;
 
             Ghs zm = new Ghs("1001", "专卖");
             Ghs zy = new Ghs("1002", "自营");
             this.comboBox_ghs.Items.AddRange(new Ghs[] { zm, zy });
             this.comboBox_ghs.SelectedIndex = 0;
-            this.Icon = Properties.Resources.yuan; ;
         }
 
         private void button1_Click(object sender, EventArgs e)

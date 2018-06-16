@@ -20,8 +20,6 @@ namespace Server
         {
             this.lb = lb;           
             this.command = Form_main.Command;
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.Icon = Properties.Resources.yuan;
             InitializeComponent();
             switch (lb)
             {
@@ -37,7 +35,6 @@ namespace Server
                 default:
                     break;
             }
-            this.Icon = Properties.Resources.yuan;
         }
 
         public void Add()

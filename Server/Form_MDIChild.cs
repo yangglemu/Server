@@ -32,7 +32,6 @@ namespace Server
             InitializeComponent();
             items = new List<string>();
             myTable = new DataTable();
-            this.Icon = Properties.Resources.yuan;
             this._sql = Form_main.Command.CommandText;
             this.撤回此出库ToolStripMenuItem.Visible = false;
         }
@@ -225,17 +224,21 @@ namespace Server
                 return;
             this.dataGridView1.CurrentCell = this.dataGridView1.Rows[e.RowIndex].Cells[0];
             if (this.Text.Contains("单笔明细"))
-            {                
+            {
                 this.contextMenuStrip1.Show(dataGridView1, this.PointToClient(MousePosition));
             }
             else if (this.Text == "商品资料" || this.Text.Contains("入库明细") || this.Text.Contains("入库汇总"))
             {
-                
+
                 this.contextMenuStrip1_print.Show(dataGridView1, this.PointToClient(MousePosition));
             }
             else if (this.Text == "出库明细")
             {
                 this.contextMenuStrip1_print.Show(dataGridView1, this.PointToClient(MousePosition));
+            }
+            else if (this.Text == "查看备注")
+            {
+                this.contextMenuStrip_备注.Show(dataGridView1, this.PointToClient(MousePosition));
             }
         }
 
@@ -301,20 +304,19 @@ namespace Server
 
         private void Form_MDIChild_Activated(object sender, EventArgs e)
         {
-            if (this.Icon != Properties.Resources.yuan)
-                this.Icon = Properties.Resources.yuan;
-            if (this.Text.Contains("入库明细--工具") || this.Text.Contains("入库汇总--工具"))
+            if (this.Text.Contains("【入库明细--工具】") || this.Text.Contains("【入库汇总--工具】"))
                 (this.MdiParent as Form_main).toolStripMenuItem_真实入库.Enabled = true;
-            if(this.Text.Contains("【入库汇总--工具】"))
+            if (this.Text.Contains("入库汇总") || this.Text.Contains("入库明细"))
             {
                 this.toolStripMenuItem_打印整张表.Visible = true;
             }
-            else if (this.Text.Contains("【入库明细--工具】"))
+            if (this.Text.Contains("【入库明细--工具】"))
             {
+                this.toolStripMenuItem_打印整张表.Visible = true;
                 this.toolStripMenuItem_删除此行.Visible = true;
                 this.toolStripMenuItem_编辑此行.Visible = true;
-            } 
-            else if(this.Text=="出库明细")
+            }
+            if (this.Text == "出库明细")
             {
                 this.toolStripMenuItem_print.Visible = false;
                 this.撤回此出库ToolStripMenuItem.Visible = true;
@@ -329,17 +331,14 @@ namespace Server
 
         private void Form_MDIChild_Deactivate(object sender, EventArgs e)
         {
-            if (this.Text.Contains("【入库明细--工具】") || this.Text.Contains("【入库汇总--工具】"))
+            if (this.Text.Contains("入库明细") || this.Text.Contains("入库汇总"))
+            {
                 (this.MdiParent as Form_main).toolStripMenuItem_真实入库.Enabled = false;
-            if (this.Text.Contains("【入库汇总--工具】"))
-            {
                 this.toolStripMenuItem_打印整张表.Visible = false;
-            } else if(this.Text.Contains("【入库明细--工具】"))
-            {
                 this.toolStripMenuItem_删除此行.Visible = false;
                 this.toolStripMenuItem_编辑此行.Visible = false;
             }
-            else if (this.Text == "出库明细")
+            if (this.Text == "出库明细")
             {
                 this.撤回此出库ToolStripMenuItem.Visible = false;
                 this.toolStripMenuItem_print.Visible = true;
@@ -384,13 +383,13 @@ namespace Server
                     return;
                 }
                 if (ret != 1)
-                    throw new Exception("删除出错！mdichild.cs line 304.");
+                    throw new Exception("删除出错！mdichild.cs line 392.");
 
                 sql = string.Format("update goods set kc=kc-{0} where tm='{1}'", sl, tm);
                 command.CommandText = sql;
                 ret = command.ExecuteNonQuery();
                 if (ret != 1)
-                    throw new Exception("修改库存出错！mdichild.cs line 310.");
+                    throw new Exception("修改库存出错！mdichild.cs line 398.");
                 tr.Commit();
             }
             catch (Exception se)
@@ -405,24 +404,27 @@ namespace Server
 
         private void toolStripMenuItem_打印整张表_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("将打印整张表的所有行，是吗？", "提示", MessageBoxButtons.YesNo,MessageBoxIcon.Asterisk,MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+            if (MessageBox.Show("将打印整张表的所有行，是吗？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                 return;
-            if (!this.Text.Contains("【入库汇总--工具】"))
-                return;
-            foreach(DataGridViewRow row in this.dataGridView.Rows)
+            if (this.Text.Contains("入库汇总") || this.Text.Contains("入库明细"))
             {
-                string tm = row.Cells["条码"].Value.ToString();
-                string pm = row.Cells["品名"].Value.ToString();
-                float sj = float.Parse(row.Cells["售价"].Value.ToString());
-                string fs = row.Cells["数量"].Value.ToString();
-                string dj = "￥" + sj.ToString("N2");
-                LabelFormatDocument doc = Form_main.labeldoc;
-                doc.SubStrings["tm"].Value = tm;
-                doc.SubStrings["pm"].Value = pm;
-                doc.SubStrings["sj"].Value = dj;
-                doc.SubStrings["fs"].Value = fs;
-                doc.Print();
-            }            
+                foreach (DataGridViewRow row in this.dataGridView.Rows)
+                {
+                    string tm = row.Cells["条码"].Value.ToString();
+                    string pm = row.Cells["品名"].Value.ToString();
+                    float sj = float.Parse(row.Cells["售价"].Value.ToString());
+                    string fs = row.Cells["数量"].Value.ToString();
+                    string dj = "￥" + sj.ToString("N2");
+
+
+                    LabelFormatDocument doc = Form_main.labeldoc;
+                    doc.SubStrings["tm"].Value = tm;
+                    doc.SubStrings["pm"].Value = pm;
+                    doc.SubStrings["sj"].Value = dj;
+                    doc.SubStrings["fs"].Value = fs;
+                    doc.Print();
+                }
+            }
         }
 
         private void toolStripMenuItem_删除此行_Click(object sender, EventArgs e)
@@ -432,6 +434,7 @@ namespace Server
             if (!this.Text.Contains("【入库明细--工具】"))
                 return;
             DataGridViewRow row = this.dataGridView.CurrentRow;
+            if (row == null) return;
             string date = row.Cells["日期"].Value.ToString();
             string sql = "delete from rk_temp where rq='" + date + "'";
             IDbCommand command = Form_main.Command;
@@ -504,12 +507,12 @@ namespace Server
                 MessageBox.Show(se.Message + "\r\n开始回滚！", "出错提示：", MessageBoxButtons.OK);
                 tr.Rollback();
                 return;
-            }            
+            }
             MessageBox.Show("删除出库明细,及修改库存数据成功！", "提示：", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
-        {                        
+        {
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
@@ -531,6 +534,40 @@ namespace Server
                     throw new Exception("操作数据库出错, delete from rk_temp");
                 this.dataGridView.Rows.Remove(row);
             }
+        }
+
+        private void 删除备注ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("将删除此行，是吗？", "提示", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+            if (this.Text != "查看备注") return;
+            DataGridViewRow row = this.dataGridView.CurrentRow;
+            if (row == null) return;
+            string date = row.Cells["日期"].Value.ToString();
+            string sql = "delete from bz where rq='" + date + "'";
+            IDbCommand command = Form_main.Command;
+            command.CommandText = sql;
+            int ret = command.ExecuteNonQuery();
+            if (ret != 1)
+                throw new Exception("操作数据库出错, delete from bz");
+            this.dataGridView.Rows.Remove(row);
+        }
+
+        private void 编辑备注ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var row = this.dataGridView.CurrentRow;
+            if (row == null) return;
+            var input = new Form_Input();
+            if (input.ShowDialog(this) != DialogResult.OK) return;
+
+            var rq = row.Cells["日期"].Value.ToString();
+            var nr = input.Input;
+            var command = Form_main.Command;
+            command.CommandText = string.Format("update bz set nr='{0}' where rq='{1}'", nr, rq);
+            var ret = command.ExecuteNonQuery();
+            if (ret != 1)
+                throw new Exception("操作数据库出错, edit table bz");
+            row.Cells["内容"].Value = input.Input;
         }
     }
 }

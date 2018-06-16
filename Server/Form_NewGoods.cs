@@ -13,7 +13,6 @@ namespace Server
 {
     public partial class Form_NewGoods : Form
     {
-        MySqlConnection connection;
         MySqlCommand command;
         string db;
         public Form_NewGoods(string db)
@@ -24,16 +23,12 @@ namespace Server
             this.textBox_ptzq.Text = "1.0";
             this.textBox_hyzq.Text = "1.0";
 
-            connection = Form_main.Connection;
-            command = new MySqlCommand();
-            command.Connection = connection;
+            command = Form_main.Command;
 
             // Ghs zm = new Ghs("1001", "专卖");
             Ghs zy = new Ghs("1001", "自营");
             this.textBox_ghs.Items.AddRange(new Ghs[] { zy });
             this.textBox_ghs.SelectedIndex = 0;
-
-            this.Icon = Properties.Resources.yuan;
         }
 
         private void textBox_pm_KeyDown(object sender, KeyEventArgs e)
@@ -62,6 +57,43 @@ namespace Server
                         this.textBox_sj.SelectAll();
                     }
                     break;
+                case Keys.R:
+                    if (e.Control)
+                    {
+                        if (!CheckJJ()) break;
+                        textBox_sj.Text = textBox_jj.Text;
+                        textBox_sj_TextChanged(null, null);
+                        var rk_gj = new Form_rk_工具();
+                        if (rk_gj.add_rk_gj(textBox_tm.Text))
+                            rk_gj.ShowDialog(this.Owner);
+                        this.textBox_jj.Clear();
+                        this.textBox_sj.Clear();
+                        var tm = this.textBox_tm.Text;
+                        tm = tm.Remove(6);
+                        tm += "XXX";
+                        this.textBox_tm.Text = tm;
+                        rk_gj.Close();
+                    }
+                    break;
+                case Keys.P:
+                    if (!e.Control) break;
+                    if (!CheckJJ()) break;
+                    textBox_sj.Text = textBox_jj.Text;
+                    textBox_sj_TextChanged(null, null);
+                    var print = new Form_Print_BarCode();
+                    if (print.add_print(textBox_tm.Text))
+                        print.ShowDialog(this.Owner);
+                    this.textBox_jj.Clear();
+                    this.textBox_sj.Clear();
+                    var tm2 = this.textBox_tm.Text;
+                    tm2 = tm2.Remove(6);
+                    tm2 += "XXX";
+                    this.textBox_tm.Text = tm2;
+                    print.Close();
+                    break;
+                case Keys.Escape:
+                    Close();
+                    break;
                 default:
                     break;
             }
@@ -78,6 +110,9 @@ namespace Server
                         //this.textBox_ptzq.SelectAll();
                         this.button1.Select();
                     }
+                    break;
+                case Keys.Escape:
+                    this.Close();
                     break;
 
                 default:
@@ -201,7 +236,7 @@ namespace Server
         private bool CheckSJ()
         {
             string s = this.textBox_sj.Text.Trim();
-            if(s.Length<1 || s.Length>4)
+            if (s.Length < 1 || s.Length > 4)
             {
                 MessageBox.Show("应输入1-4位数值！");
                 return false;

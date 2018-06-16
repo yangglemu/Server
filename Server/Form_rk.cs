@@ -18,18 +18,25 @@ namespace Server
         public Form_rk()
         {
             InitializeComponent();
-            this.Icon = Properties.Resources.yuan; ;
             command = Form_main.Command;
             this.textBox_tm.Select();
         }
 
-        protected bool CheckTM()
+        protected bool CheckTM(string s)
         {
             if (this.textBox_tm.ReadOnly)
             {
                 return true;
             }
-            string s = this.textBox_tm.Text.Trim();
+            if (s.Length < 4 && s.Length > 0)
+            {
+                int i;
+                if (int.TryParse(s, out i))
+                {
+                    s = "010101" + i.ToString("000");
+                    this.textBox_tm.Text = s;
+                }
+            }
             if (s.Length > 0 && s.Length < 15)
             {
                 command.CommandText = "select pm,jj,sj from goods where tm='" + s + "'";
@@ -113,13 +120,12 @@ namespace Server
                     command.ExecuteNonQuery();//更新库存
                 }
                 s = string.Format("insert into {0}(rq,tm,czy,sl) values('{1}','{2}','{3}',{4})",
-                    db,
-                    DateTime.Now.ToString(), this.textBox_tm.Text, f.worker.bh, this.textBox_sl.Text);
+                    db, DateTime.Now.ToString(), this.textBox_tm.Text, f.worker.bh, this.textBox_sl.Text);
                 command.CommandText = s;
                 command.ExecuteNonQuery();//添加入库操作记录
                 tr.Commit();
             }
-            catch (Exception se)
+            catch (MySqlException se)
             {
                 tr.Rollback();
                 MessageBox.Show(se.Message, "出错提示");
@@ -139,8 +145,11 @@ namespace Server
             switch (e.KeyCode)
             {
                 case Keys.Return:
-                    if (CheckTM())
+                    if (CheckTM(textBox_tm.Text.Trim()))
                         this.textBox_sl.Select();
+                    break;
+                case Keys.Escape:
+                    this.Close();
                     break;
 
                 default:
@@ -156,10 +165,25 @@ namespace Server
                     if (CheckSL())
                         this.button1.Select();
                     break;
+                case Keys.Escape:
+                    Close();
+                    break;
 
                 default:
                     break;
             }
+        }
+
+        public bool add_rk_gj(string tm)
+        {
+            if (!CheckTM(tm))
+            {
+                MessageBox.Show("条码不存在！");
+                this.Close();
+                return false;
+            }
+            this.textBox_tm.Text = tm;
+            return true;
         }
     }
 }

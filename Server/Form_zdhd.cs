@@ -22,8 +22,6 @@ namespace Server
         public Form_zdhd()
         {
             InitializeComponent();
-
-            this.Icon = Properties.Resources.yuan;
         }
 
         private void button_kc_Click(object sender, EventArgs e)

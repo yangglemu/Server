@@ -13,17 +13,12 @@ namespace Server
 {
     public partial class Form_cx_one : Form
     {
-        MySqlConnection connection;
         MySqlCommand command;
 
         public Form_cx_one()
         {
             InitializeComponent();
-            connection = Form_main.Connection;
-            command = new MySqlCommand();
-            command.Connection = connection;
-
-            this.Icon = Properties.Resources.yuan;
+            command = Form_main.Command;
         }
 
         private bool CheckTM()

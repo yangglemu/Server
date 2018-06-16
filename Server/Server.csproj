@@ -56,9 +56,9 @@
     <StartupObject>Server.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\MySQL\MySQL Connector Net 6.7.4\Assemblies\v4.5\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\duobao\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="NPOI">
       <HintPath>..\..\..\mysql_NPOI_qt\NPOI\NPOI 2.1.1\dotnet4\NPOI.dll</HintPath>
@@ -102,6 +102,12 @@
     </Compile>
     <Compile Include="Form_Edit_rk_temp.Designer.cs">
       <DependentUpon>Form_Edit_rk_temp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Input.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Input.Designer.cs">
+      <DependentUpon>Form_Input.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_zp_ck.cs">
       <SubType>Form</SubType>
@@ -280,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Edit_rk_temp.resx">
       <DependentUpon>Form_Edit_rk_temp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Input.resx">
+      <DependentUpon>Form_Input.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_zp_ck.resx">
       <DependentUpon>Form_zp_ck.cs</DependentUpon>
@@ -538,6 +547,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\bk.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -13,17 +13,11 @@ namespace Server
 {
     public partial class Form_New_People : Form
     {
-        MySqlConnection connection;
         MySqlCommand command;
         public Form_New_People()
         {
             InitializeComponent();
-
-            connection = Form_main.Connection;
-            command = new MySqlCommand();
-            command.Connection = connection;
-
-            this.Icon = Properties.Resources.yuan;
+            command = Form_main.Command;
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)

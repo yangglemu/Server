@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Print_BarCode));
             this.button1_print = new System.Windows.Forms.Button();
             this.textBox1_tm = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,6 +53,7 @@
             this.button1_print.Text = "打印";
             this.button1_print.UseVisualStyleBackColor = true;
             this.button1_print.Click += new System.EventHandler(this.button1_print_Click);
+            this.button1_print.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button1_print_KeyDown);
             // 
             // textBox1_tm
             // 
@@ -163,9 +165,12 @@
             this.Controls.Add(this.textBox1_tm);
             this.Controls.Add(this.button1_print);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form_Print_BarCode";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "打印条码";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Print_BarCode_FormClosing);
             this.groupBox1.ResumeLayout(false);
@@ -178,7 +183,6 @@
         #endregion
 
         private System.Windows.Forms.Button button1_print;
-        private System.Windows.Forms.TextBox textBox1_tm;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
@@ -189,5 +193,6 @@
         private System.Windows.Forms.TextBox textBox_pm;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox1_hh;
+        public System.Windows.Forms.TextBox textBox1_tm;
     }
 }

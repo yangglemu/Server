@@ -15,13 +15,13 @@ namespace Server
     {
         MySqlCommand command;
         string yy;
+        string tm;
 
         public Form_ckth()
         {
             InitializeComponent();
             command = Form_main.Command;
             yy = this.radioButton_th.Text;
-            this.Icon = Properties.Resources.yuan;
         }
 
         private void textBox_tm_KeyDown(object sender, KeyEventArgs e)
@@ -72,6 +72,8 @@ namespace Server
                     this.textBox_pm.Text = dr.GetString(0);
                     this.textBox_jj.Text = dr.GetFloat(1).ToString("N2");
                     this.textBox_sj.Text = dr.GetFloat(2).ToString("N2");
+                    tm = s;
+                    this.textBox_tm.Text = tm;
                     this.textBox_tm.ReadOnly = true;
                     this.textBox_sl.Select();
                     dr.Close();
@@ -80,6 +82,7 @@ namespace Server
                 else
                 {
                     dr.Close();
+                    tm = "";
                     MessageBox.Show("无此商品！检查条码是否正确", "友情提示");
                     this.textBox_tm.SelectAll();
                     return false;
@@ -119,10 +122,10 @@ namespace Server
             if (this.textBox_pm.TextLength < 1)
                 return;
 
-            Form_main f = this.Owner as Form_main;
+            Form_main f = this.Owner as Form_main;            
 
             string s = string.Format("update goods set kc=kc-{0} where tm='{1}'",
-                this.textBox_sl.Text, this.textBox_tm.Text);
+                this.textBox_sl.Text, tm);
 
             command.CommandText = s;
             MySqlTransaction tr = command.Connection.BeginTransaction();
@@ -130,7 +133,7 @@ namespace Server
             {
                 command.ExecuteNonQuery();
                 s = string.Format("insert into ck(rq,tm,czy,sl,bz) values('{0}','{1}','{2}',{3},'{4}')",
-                    DateTime.Now.ToString(), this.textBox_tm.Text, f.worker.bh, this.textBox_sl.Text, this.yy);
+                    DateTime.Now.ToString(), tm, f.worker.bh, this.textBox_sl.Text, this.yy);
                 command.CommandText = s;
                 command.ExecuteNonQuery();
                 tr.Commit();
@@ -141,6 +144,7 @@ namespace Server
                 MessageBox.Show(se.Message, "出错提示");
                 return;
             }
+            this.tm = "";
             this.textBox_tm.Clear();
             this.textBox_pm.Clear();
             this.textBox_jj.Clear();

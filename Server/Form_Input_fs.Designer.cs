@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Input_fs));
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1_副本份数 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -165,10 +166,12 @@
             this.Controls.Add(this.textBox1_副本份数);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form_Input_fs";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "打印条码";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

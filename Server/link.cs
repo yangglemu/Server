@@ -15,8 +15,7 @@ namespace Server
         public Link_Form()
         {
             InitializeComponent();
-
-            this.Icon = Properties.Resources.yuan;
+            this.label1.Parent = this.pictureBox1;
         }        
     }
 }
