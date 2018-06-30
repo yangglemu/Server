@@ -116,7 +116,7 @@ namespace Server
                 doc = Form_main.labeldoc;
             else
                 doc = Form_main.labeldoc2;
-            doc.SubStrings["shop"].Value = (this.ParentForm as Form_main).Text;
+            doc.SubStrings["shop"].Value = Form_main.shop;
             doc.SubStrings["tm"].Value = this.tm;
             doc.SubStrings["pm"].Value = this.pm;
             doc.SubStrings["sj"].Value = this.dj;

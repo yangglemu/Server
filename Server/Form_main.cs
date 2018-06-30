@@ -20,6 +20,7 @@ namespace Server
 {
     public partial class Form_main : Form
     {
+        public static string shop;
         public static string printer;
         private bool enabledPrint;
 
@@ -37,8 +38,8 @@ namespace Server
         }
 
         public static Engine engine;
-        public static LabelFormatDocument _labeldoc;
-        public static LabelFormatDocument _labeldoc2;
+        private static LabelFormatDocument _labeldoc;
+        private static LabelFormatDocument _labeldoc2;
         private static LabelFormat _lf;
         private static LabelFormat _lf2;
 
@@ -50,6 +51,7 @@ namespace Server
                 Seagull.BarTender.Print.Messages msgs;
                 _labeldoc = engine.Documents.Open(_lf, out msgs);
                 _labeldoc.PrintSetup.PrinterName = Form_main.printer;
+                _labeldoc.SubStrings["shop"].Value = Form_main.shop;
                 return _labeldoc;
             }
         }
@@ -61,6 +63,7 @@ namespace Server
                 Seagull.BarTender.Print.Messages msgs;
                 _labeldoc2 = engine.Documents.Open(_lf2, out msgs);
                 _labeldoc2.PrintSetup.PrinterName = Form_main.printer;
+                _labeldoc2.SubStrings["shop"].Value = Form_main.shop;
                 return _labeldoc2;
             }
         }
@@ -97,6 +100,7 @@ namespace Server
         public Form_main()
         {
             InitializeComponent();
+            this.Text = Form_main.shop;
         }
 
         private void Form_main_Load(object sender, EventArgs e)
@@ -2357,7 +2361,7 @@ namespace Server
             Seagull.BarTender.Print.Messages msgs;
             var zp_document = engine.Documents.Open(zp_format, out msgs);
             zp_document.PrintSetup.PrinterName = Form_main.printer;
-            zp_document.SubStrings["shop"].Value = this.Text;
+            zp_document.SubStrings["shop"].Value = Form_main.shop;
             zp_document.SubStrings["tm"].Value = input.Input;
             zp_document.Print();
             zp_document.Close(SaveOptions.DoNotSaveChanges);
@@ -2373,7 +2377,7 @@ namespace Server
             Seagull.BarTender.Print.Messages msgs;
             var hb_document = engine.Documents.Open(hb_format, out msgs);
             hb_document.PrintSetup.PrinterName = Form_main.printer;
-            hb_document.SubStrings["shop"].Value = this.Text;
+            hb_document.SubStrings["shop"].Value = Form_main.shop;
             hb_document.SubStrings["fs"].Value = input.Input;
             hb_document.Print();
             hb_document.Close(SaveOptions.DoNotSaveChanges);
