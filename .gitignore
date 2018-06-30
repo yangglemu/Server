@@ -1,4 +1,10 @@
 #ignore
+#.gitignore
+
+#bin
 /*/[Bb]in/
-/*/[Dd]bu/
+
+#obj
+/*/[Oo]bj/
+
 *.suo
