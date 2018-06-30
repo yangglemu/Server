@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
-  <name>阳光服饰</name>
+  <shop>阳光服饰</shop>
   <ip>127.0.0.1</ip>
   <user>root</user>
   <password>yuanbo960502</password>
-  <database>duobao</database>
+  <database>db</database>
   <tm_printer>TSC TTP-245</tm_printer>  
 </config>

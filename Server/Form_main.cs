@@ -30,6 +30,8 @@ namespace Server
             {
                 this.enabledPrint = value;
                 this.打印条码ToolStripMenuItem.Enabled = value;
+                this.打印回扁ToolStripMenuItem.Enabled = value;
+                this.打印赠品ToolStripMenuItem.Enabled = value;
                 this.toolStripButton_打印.Enabled = value;
             }
         }
@@ -1822,6 +1824,7 @@ namespace Server
 
         private void 打印条码ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!this.EnabledPrint) return;
             Form_Print_BarCode pb = new Form_Print_BarCode();
             pb.ShowDialog(this);
         }
@@ -2342,6 +2345,38 @@ namespace Server
         private void toolStripButton7_Click(object sender, EventArgs e)
         {
             this.查看备注ToolStripMenuItem_Click(null, null);
+        }
+
+        private void 打印赠品ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!this.EnabledPrint) return;
+            var input = new Form_Input();
+            input.Text = "请输入赠品价值：";
+            if (input.ShowDialog(this) != DialogResult.OK) return;
+            var zp_format = new LabelFormat(Application.StartupPath + "\\ZengPing.btw");
+            Seagull.BarTender.Print.Messages msgs;
+            var zp_document = engine.Documents.Open(zp_format, out msgs);
+            zp_document.PrintSetup.PrinterName = Form_main.printer;
+            zp_document.SubStrings["shop"].Value = this.Text;
+            zp_document.SubStrings["tm"].Value = input.Input;
+            zp_document.Print();
+            zp_document.Close(SaveOptions.DoNotSaveChanges);
+        }
+
+        private void 打印回扁ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!this.EnabledPrint) return;
+            var input = new Form_Input();
+            input.Text = "请输入打印份数";
+            if (input.ShowDialog(this) != DialogResult.OK) return;
+            var hb_format = new LabelFormat(Application.StartupPath + "\\HuiBian.btw");
+            Seagull.BarTender.Print.Messages msgs;
+            var hb_document = engine.Documents.Open(hb_format, out msgs);
+            hb_document.PrintSetup.PrinterName = Form_main.printer;
+            hb_document.SubStrings["shop"].Value = this.Text;
+            hb_document.SubStrings["fs"].Value = input.Input;
+            hb_document.Print();
+            hb_document.Close(SaveOptions.DoNotSaveChanges);
         }
     }
 }

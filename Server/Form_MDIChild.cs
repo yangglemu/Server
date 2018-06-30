@@ -52,7 +52,7 @@ namespace Server
                 doc = Form_main.labeldoc;
             else
                 doc = Form_main.labeldoc2;
-
+            doc.SubStrings["shop"].Value = (this.MdiParent as Form_main).Text;
             doc.SubStrings["tm"].Value = tm;
             doc.SubStrings["pm"].Value = pm;
             doc.SubStrings["sj"].Value = dj;

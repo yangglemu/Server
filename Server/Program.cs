@@ -34,7 +34,7 @@ namespace Server
                 root.SelectSingleNode("password").InnerText,
                 root.SelectSingleNode("database").InnerText);
             Form_main.printer = root.SelectSingleNode("tm_printer").InnerText;
-            var title = root.SelectSingleNode("name").InnerText;
+            var title = root.SelectSingleNode("shop").InnerText;
             link.label1.Text = "配置完毕，正在连接数据库 ……";
             Application.DoEvents();
             try

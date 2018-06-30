@@ -22,15 +22,13 @@ namespace Server
         private void button2_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
-            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (this.textBox1.TextLength < 1) return;
-            this.Input = this.textBox1.Text.Trim().Replace("\r\n", " ");
+            this.Input = this.textBox1.Text.Trim().Replace("\r\n", "");
             this.DialogResult = DialogResult.OK;
-            this.Close();
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)

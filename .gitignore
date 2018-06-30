@@ -1,0 +1,4 @@
+#ignore
+/*/[Bb]in/
+/*/[Dd]bu/
+*.suo
