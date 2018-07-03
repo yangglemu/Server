@@ -178,8 +178,8 @@ namespace Server
             f.Text = "商品资料";
             f.MdiParent = this;
             f.items.AddRange(new string[] { "售价", "品名", "条码" });
+            f.dataGridView.DataSource = dt;
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             this.dataGridView1.Columns["售价"].DefaultCellStyle.Format = "N2";
             if (this.dataGridView1.Columns["进价"] != null)
                 this.dataGridView1.Columns["进价"].DefaultCellStyle.Format = "N2";
@@ -226,8 +226,8 @@ namespace Server
             f.Text = "库存浏览";
             f.MdiParent = this;
             f.items.AddRange(new string[] { "售价", "条码", "品名", "库存", "供货商" });
+            f.dataGridView.DataSource = dt;
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             this.dataGridView1.Columns["售价"].DefaultCellStyle.Format = "N2";
             if (this.dataGridView1.Columns["进价"] != null)
                 this.dataGridView1.Columns["进价"].DefaultCellStyle.Format = "N2";
@@ -289,8 +289,8 @@ namespace Server
             f.MdiParent = this;
             f.Text = FormText;
             f.items.AddRange(new string[] { "单据号", "条码", "会员", "收银员" });
+            f.dataGridView.DataSource = dt;
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             string sl = "0";
             float je = 0;
             if (dt.Rows.Count > 0)
@@ -336,8 +336,8 @@ namespace Server
             Form_MDIChild f = new Form_MDIChild();
             f.MdiParent = this;
             f.items.AddRange(new string[] { "单据号", "会员号" });
+            f.dataGridView.DataSource = dt;
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             f.Text = FormText;
             string sl = "0";
             float je = 0;
@@ -448,8 +448,8 @@ namespace Server
             Form_MDIChild f = new Form_MDIChild();
             f.Text = "本日时段";
             f.MdiParent = this;
-            this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
+            f.dataGridView.DataSource = dt;
+            this.dataGridView1 = f.dataGridView;            
             this.dataGridView1.Columns["营业额"].DefaultCellStyle.Format = "N2";
             this.dataGridView1.Columns["客单价"].DefaultCellStyle.Format = "N2";
             if (total_lks > 0)
@@ -501,8 +501,8 @@ namespace Server
             Form_MDIChild f = new Form_MDIChild();
             f.Text = "本日分类" + _zm.ToString();
             f.MdiParent = this;
+            f.dataGridView.DataSource = dt;
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             this.SetColumnsWidth();
             f.toolStripStatusLabel1.Text = "【本日分类" + _zm + "】当前共【" + dt.Rows.Count + "】条记录";
             s = "select ifnull(sum(sale_mx.sl),0) from sale_mx left join(sale_db,goods) on(sale_db.djh=sale_mx.djh and goods.tm=sale_mx.tm) where goods.ghs='" + _zm + "' and  date(sale_db.rq)>='" + _start + "' and date(sale_db.rq)<='" + _end + "'";
@@ -543,8 +543,9 @@ namespace Server
             Form_MDIChild f = new Form_MDIChild();
             f.MdiParent = this;
             f.Text = "按日统计";
+            f.dataGridView.DataSource = dt;
+            f.dataGridView.Columns["日期"].DefaultCellStyle.Format = "yyyy-MM-dd  dddd";
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             this.SetColumnsWidth();
             f.toolStripStatusLabel1.Text = "统计起始日【" + start + "】，截止日【" + end + "】，共【30】天";
             this.dataGridView1.Columns["金额"].DefaultCellStyle.Format = "N2";

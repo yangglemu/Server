@@ -26,15 +26,15 @@ namespace Server
 
         private void textBox_tm_KeyDown(object sender, KeyEventArgs e)
         {
-            switch(e.KeyCode)
+            switch (e.KeyCode)
             {
                 case Keys.Return:
-                    if(CheckTM())
+                    if (CheckTM())
                     {
                         this.textBox_sl.Select();
                     }
                     break;
-                     
+
                 default:
                     break;
             }
@@ -45,7 +45,7 @@ namespace Server
             switch (e.KeyCode)
             {
                 case Keys.Return:
-                    if(CheckSL())
+                    if (CheckSL())
                     {
                         this.button1.Select();
                     }
@@ -63,6 +63,18 @@ namespace Server
                 return true;
             }
             string s = this.textBox_tm.Text.Trim();
+            if (s.Length < 4)
+            {
+                int x;
+                if (Int32.TryParse(s, out x))
+                {
+                    s = "010101" + x.ToString("000");
+                }
+                else
+                {
+                    return false;
+                }
+            }
             if (s.Length > 0 && s.Length < 15)
             {
                 command.CommandText = "select pm,jj,sj from goods where tm='" + s + "'";
@@ -122,7 +134,7 @@ namespace Server
             if (this.textBox_pm.TextLength < 1)
                 return;
 
-            Form_main f = this.Owner as Form_main;            
+            Form_main f = this.Owner as Form_main;
 
             string s = string.Format("update goods set kc=kc-{0} where tm='{1}'",
                 this.textBox_sl.Text, tm);
