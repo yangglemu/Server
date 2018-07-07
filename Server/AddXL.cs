@@ -24,7 +24,7 @@ namespace Server
         protected void AddXL_Load(object sender, EventArgs e)
         {
             //bh编号(max)、pm品名、dnm店内码(2位大类、4位中类、6位小类)
-            command.CommandText = "select bh,pm,dnm from fl where char_length(dnm)=4 order by pm asc";
+            command.CommandText = "select bh,pm,dnm from fl where char_length(dnm)=4 order by dnm asc";
             MySqlDataReader dr = command.ExecuteReader();
             while (dr.Read())
             {

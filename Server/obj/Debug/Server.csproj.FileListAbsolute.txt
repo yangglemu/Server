@@ -119,7 +119,7 @@ D:\VS2013\Server\Server\obj\Debug\Server.Form_cx_one.resources
 D:\VS2013\Server\Server\obj\Debug\Server.Link_Form.resources
 D:\VS2013\Server\Server\obj\Debug\Server.Properties.Resources.resources
 D:\VS2013\Server\Server\obj\Debug\Server.csproj.GenerateResource.Cache
-D:\VS2013\Server\Server\bin\Debug\MySql.Data.dll
-D:\VS2013\Server\Server\bin\Debug\MySql.Data.xml
-D:\VS2013\Server\Server\bin\Debug\Server.exe.CodeAnalysisLog.xml
-D:\VS2013\Server\Server\bin\Debug\Server.exe.lastcodeanalysissucceeded
+C:\VS2013\Server\Server\bin\Debug\Server.exe.config
+C:\VS2013\Server\Server\obj\Debug\Server.exe
+C:\VS2013\Server\Server\obj\Debug\Server.pdb
+D:\VS2013\Server\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
