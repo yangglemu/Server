@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_main));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.商品ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.浏览商品ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -136,6 +135,8 @@
             this.toolStripMenuItem_真实入库 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.打印条码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.打印赠品ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.打印回扁ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1系统 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_备注 = new System.Windows.Forms.ToolStripMenuItem();
             this.添加备注ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -179,8 +180,6 @@
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.打印赠品ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.打印回扁ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -1159,12 +1158,30 @@
             // 
             // 打印条码ToolStripMenuItem
             // 
-            this.打印条码ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("打印条码ToolStripMenuItem.Image")));
+            this.打印条码ToolStripMenuItem.Image = global::Server.Properties.Resources.printer;
             this.打印条码ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.打印条码ToolStripMenuItem.Name = "打印条码ToolStripMenuItem";
             this.打印条码ToolStripMenuItem.Size = new System.Drawing.Size(168, 38);
             this.打印条码ToolStripMenuItem.Text = "打印条码";
             this.打印条码ToolStripMenuItem.Click += new System.EventHandler(this.打印条码ToolStripMenuItem_Click);
+            // 
+            // 打印赠品ToolStripMenuItem
+            // 
+            this.打印赠品ToolStripMenuItem.Image = global::Server.Properties.Resources.printer;
+            this.打印赠品ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.打印赠品ToolStripMenuItem.Name = "打印赠品ToolStripMenuItem";
+            this.打印赠品ToolStripMenuItem.Size = new System.Drawing.Size(168, 38);
+            this.打印赠品ToolStripMenuItem.Text = "打印赠品";
+            this.打印赠品ToolStripMenuItem.Click += new System.EventHandler(this.打印赠品ToolStripMenuItem_Click);
+            // 
+            // 打印回扁ToolStripMenuItem
+            // 
+            this.打印回扁ToolStripMenuItem.Image = global::Server.Properties.Resources.printer;
+            this.打印回扁ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.打印回扁ToolStripMenuItem.Name = "打印回扁ToolStripMenuItem";
+            this.打印回扁ToolStripMenuItem.Size = new System.Drawing.Size(168, 38);
+            this.打印回扁ToolStripMenuItem.Text = "打印回扁";
+            this.打印回扁ToolStripMenuItem.Click += new System.EventHandler(this.打印回扁ToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1系统
             // 
@@ -1191,7 +1208,7 @@
             this.toolStripMenuItem_备注.Image = global::Server.Properties.Resources.Pencil;
             this.toolStripMenuItem_备注.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem_备注.Name = "toolStripMenuItem_备注";
-            this.toolStripMenuItem_备注.Size = new System.Drawing.Size(168, 38);
+            this.toolStripMenuItem_备注.Size = new System.Drawing.Size(140, 38);
             this.toolStripMenuItem_备注.Text = "备注";
             // 
             // 添加备注ToolStripMenuItem
@@ -1215,28 +1232,28 @@
             // toolStripSeparator19
             // 
             this.toolStripSeparator19.Name = "toolStripSeparator19";
-            this.toolStripSeparator19.Size = new System.Drawing.Size(165, 6);
+            this.toolStripSeparator19.Size = new System.Drawing.Size(137, 6);
             // 
             // 锁定ToolStripMenuItem
             // 
             this.锁定ToolStripMenuItem.Image = global::Server.Properties.Resources.Lock;
             this.锁定ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.锁定ToolStripMenuItem.Name = "锁定ToolStripMenuItem";
-            this.锁定ToolStripMenuItem.Size = new System.Drawing.Size(168, 38);
+            this.锁定ToolStripMenuItem.Size = new System.Drawing.Size(140, 38);
             this.锁定ToolStripMenuItem.Text = "锁定";
             this.锁定ToolStripMenuItem.Click += new System.EventHandler(this.锁定ToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(165, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(137, 6);
             // 
             // 收银员ToolStripMenuItem
             // 
             this.收银员ToolStripMenuItem.Image = global::Server.Properties.Resources.Add;
             this.收银员ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.收银员ToolStripMenuItem.Name = "收银员ToolStripMenuItem";
-            this.收银员ToolStripMenuItem.Size = new System.Drawing.Size(168, 38);
+            this.收银员ToolStripMenuItem.Size = new System.Drawing.Size(140, 38);
             this.收银员ToolStripMenuItem.Text = "添加员工";
             this.收银员ToolStripMenuItem.Click += new System.EventHandler(this.添加员工ToolStripMenuItem_Click);
             // 
@@ -1245,7 +1262,7 @@
             this.修改员工toolStripMenuItem8.Image = global::Server.Properties.Resources.Brush;
             this.修改员工toolStripMenuItem8.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.修改员工toolStripMenuItem8.Name = "修改员工toolStripMenuItem8";
-            this.修改员工toolStripMenuItem8.Size = new System.Drawing.Size(168, 38);
+            this.修改员工toolStripMenuItem8.Size = new System.Drawing.Size(140, 38);
             this.修改员工toolStripMenuItem8.Text = "修改员工";
             this.修改员工toolStripMenuItem8.Click += new System.EventHandler(this.修改员工toolStripMenuItem8_Click);
             // 
@@ -1254,20 +1271,20 @@
             this.员工浏览toolStripMenuItem11.Image = global::Server.Properties.Resources.Searchtext;
             this.员工浏览toolStripMenuItem11.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.员工浏览toolStripMenuItem11.Name = "员工浏览toolStripMenuItem11";
-            this.员工浏览toolStripMenuItem11.Size = new System.Drawing.Size(168, 38);
+            this.员工浏览toolStripMenuItem11.Size = new System.Drawing.Size(140, 38);
             this.员工浏览toolStripMenuItem11.Text = "员工浏览";
             this.员工浏览toolStripMenuItem11.Click += new System.EventHandler(this.员工浏览toolStripMenuItem11_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(165, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(137, 6);
             // 
             // toolStripMenuItem11_删除本日
             // 
             this.toolStripMenuItem11_删除本日.Enabled = false;
             this.toolStripMenuItem11_删除本日.Name = "toolStripMenuItem11_删除本日";
-            this.toolStripMenuItem11_删除本日.Size = new System.Drawing.Size(168, 38);
+            this.toolStripMenuItem11_删除本日.Size = new System.Drawing.Size(140, 38);
             this.toolStripMenuItem11_删除本日.Text = "删除本日";
             this.toolStripMenuItem11_删除本日.Click += new System.EventHandler(this.toolStripMenuItem11删除本日销售数据_Click);
             // 
@@ -1275,7 +1292,7 @@
             // 
             this.重置系统ToolStripMenuItem.Enabled = false;
             this.重置系统ToolStripMenuItem.Name = "重置系统ToolStripMenuItem";
-            this.重置系统ToolStripMenuItem.Size = new System.Drawing.Size(168, 38);
+            this.重置系统ToolStripMenuItem.Size = new System.Drawing.Size(140, 38);
             this.重置系统ToolStripMenuItem.Text = "重置系统";
             this.重置系统ToolStripMenuItem.Click += new System.EventHandler(this.重置系统ToolStripMenuItem_Click);
             // 
@@ -1554,24 +1571,6 @@
             this.toolStripButton7.ToolTipText = "查看备注";
             this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
             // 
-            // 打印赠品ToolStripMenuItem
-            // 
-            this.打印赠品ToolStripMenuItem.Image = global::Server.Properties.Resources.printer;
-            this.打印赠品ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.打印赠品ToolStripMenuItem.Name = "打印赠品ToolStripMenuItem";
-            this.打印赠品ToolStripMenuItem.Size = new System.Drawing.Size(168, 38);
-            this.打印赠品ToolStripMenuItem.Text = "打印赠品";
-            this.打印赠品ToolStripMenuItem.Click += new System.EventHandler(this.打印赠品ToolStripMenuItem_Click);
-            // 
-            // 打印回扁ToolStripMenuItem
-            // 
-            this.打印回扁ToolStripMenuItem.Image = global::Server.Properties.Resources.printer;
-            this.打印回扁ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.打印回扁ToolStripMenuItem.Name = "打印回扁ToolStripMenuItem";
-            this.打印回扁ToolStripMenuItem.Size = new System.Drawing.Size(168, 38);
-            this.打印回扁ToolStripMenuItem.Text = "打印回扁";
-            this.打印回扁ToolStripMenuItem.Click += new System.EventHandler(this.打印回扁ToolStripMenuItem_Click);
-            // 
             // Form_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1580,7 +1579,6 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form_main";
