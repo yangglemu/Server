@@ -18,6 +18,7 @@ namespace Server
         public Form_Edit_rk_temp(DataGridViewRow row)
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             this.row = row;
             this.textBox1.Text = row.Cells["条码"].Value.ToString();
             this.textBox2.Text = row.Cells["数量"].Value.ToString();

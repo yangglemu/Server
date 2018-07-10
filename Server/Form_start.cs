@@ -19,6 +19,7 @@ namespace Server
         public Form_start()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
         }
 
         private void Form_start_Load(object sender, EventArgs e)

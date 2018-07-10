@@ -17,10 +17,11 @@ namespace Server
 
         }
         public AddLB(int lb)
-        {
-            this.lb = lb;           
-            this.command = Form_main.Command;
+        {            
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
+            this.lb = lb;
+            this.command = Form_main.Command;
             switch (lb)
             {
                 case 1:

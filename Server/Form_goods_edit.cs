@@ -17,7 +17,7 @@ namespace Server
         public Form_goods_edit()
         {
             InitializeComponent();
-
+            this.Icon = Properties.Resources.yuan;
             command = Form_main.Command;
 
             Ghs zm = new Ghs("1001", "专卖");

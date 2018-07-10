@@ -18,6 +18,8 @@ namespace Server
         public Form_NewGoods(string db)
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
+
             this.db = db;
 
             this.textBox_ptzq.Text = "1.0";

@@ -24,6 +24,7 @@ namespace Server
         public Form_Print_BarCode()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             this.textBox1_tm.Select();
             command = Form_main.Command;
         }

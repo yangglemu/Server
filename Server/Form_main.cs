@@ -100,6 +100,7 @@ namespace Server
         public Form_main()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             this.Text = Form_main.shop;
         }
 
@@ -118,12 +119,20 @@ namespace Server
                 return;
             }
             this.toolStripStatusLabel1.Text = "当前操作员：" + this.worker.xm;
-            this.backgroundWorker1.DoWork += new DoWorkEventHandler(this.GetPrinter);
+            this.backgroundWorker1.DoWork += this.GetPrinter;
             this.backgroundWorker1.RunWorkerAsync();
+            this.backgroundWorker1.RunWorkerCompleted += this.SetPrinterToEnable;
+        }
+
+        private void SetPrinterToEnable(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Result.ToString() == "OK")
+                this.EnabledPrint = true;
         }
 
         private void GetPrinter(object sender, DoWorkEventArgs e)
         {
+            e.Result = "ERROR";
             foreach (string s in PrinterSettings.InstalledPrinters)
             {
                 if (s.Equals(Form_main.printer))
@@ -133,16 +142,15 @@ namespace Server
                         Form_main.engine = new Seagull.BarTender.Print.Engine(true);
                         _lf = new LabelFormat(Application.StartupPath + "\\mylabel.btw");
                         _lf2 = new LabelFormat(Application.StartupPath + "\\mylabel2.btw");
-                        this.SetPrinterToEnable();
+                        e.Result = "OK";
                     }
-                    catch (Exception exp)
+                    catch (Exception)
                     {
-                        MessageBox.Show(exp.Message);
                     }
-                    break;
+                    return;
                 }
             }
-        }
+        }        
 
         private void 新建ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -449,7 +457,7 @@ namespace Server
             f.Text = "本日时段";
             f.MdiParent = this;
             f.dataGridView.DataSource = dt;
-            this.dataGridView1 = f.dataGridView;            
+            this.dataGridView1 = f.dataGridView;
             this.dataGridView1.Columns["营业额"].DefaultCellStyle.Format = "N2";
             this.dataGridView1.Columns["客单价"].DefaultCellStyle.Format = "N2";
             if (total_lks > 0)
@@ -510,18 +518,6 @@ namespace Server
             int hjsl = int.Parse(command.ExecuteScalar().ToString());
             f.toolStripStatusLabel1.Text += "， 共【" + hjsl.ToString() + "】件商品";
             f.Show();
-        }
-
-        private void SetPrinterToEnable()
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new Action(SetPrinterToEnable));
-            }
-            else
-            {
-                this.EnabledPrint = true;
-            }
         }
 
         private void 按日统计_toolStripMenuItem4_Click(object sender, EventArgs e)

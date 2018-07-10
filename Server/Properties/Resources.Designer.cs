@@ -345,7 +345,7 @@ namespace Server.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap Graphic_designer {
             get {
-                object obj = ResourceManager.GetObject("Graphic designer", resourceCulture);
+                object obj = ResourceManager.GetObject("Graphic_designer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -505,7 +505,7 @@ namespace Server.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap Test_line {
             get {
-                object obj = ResourceManager.GetObject("Test line", resourceCulture);
+                object obj = ResourceManager.GetObject("Test_line", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

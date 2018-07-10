@@ -282,15 +282,18 @@
     <Compile Include="Worker.cs" />
     <EmbeddedResource Include="AddLB.resx">
       <DependentUpon>AddLB.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AddXL.resx">
       <DependentUpon>AddXL.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddZL.resx">
       <DependentUpon>AddZL.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Edit_rk_temp.resx">
       <DependentUpon>Form_Edit_rk_temp.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Input.resx">
       <DependentUpon>Form_Input.cs</DependentUpon>
@@ -313,6 +316,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_cx_zy.resx">
       <DependentUpon>Form_cx_zy.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_EditWorker.resx">
       <DependentUpon>Form_EditWorker.cs</DependentUpon>
@@ -325,12 +329,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Input_fs.resx">
       <DependentUpon>Form_Input_fs.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_jfcz.resx">
       <DependentUpon>Form_jfcz.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_main.resx">
       <DependentUpon>Form_main.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_MDIChild.resx">
       <DependentUpon>Form_MDIChild.cs</DependentUpon>
@@ -355,6 +361,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_rk_工具.resx">
       <DependentUpon>Form_rk_工具.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SelectDate.resx">
       <DependentUpon>Form_SelectDate.cs</DependentUpon>
@@ -373,6 +380,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_cx_one.resx">
       <DependentUpon>Form_cx_one.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="link.resx">
       <DependentUpon>link.cs</DependentUpon>
@@ -522,10 +530,10 @@
     <EmbeddedResource Include="Resources\Help.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Graphic designer.png" />
+    <EmbeddedResource Include="Resources\Graphic_designer.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Test line.png" />
+    <EmbeddedResource Include="Resources\Test_line.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ooopic_1458911634.png" />

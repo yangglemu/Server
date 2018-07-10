@@ -16,6 +16,7 @@ namespace Server
         public Form_Input()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             this.textBox1.Select();
         }
 

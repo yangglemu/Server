@@ -30,6 +30,7 @@ namespace Server
         public Form_MDIChild()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             items = new List<string>();
             myTable = new DataTable();
             this._sql = Form_main.Command.CommandText;

@@ -19,6 +19,7 @@ namespace Server
         public Form_zp_ck()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             command = Form_main.Command;
             yy = this.radioButton_th.Text;
         }

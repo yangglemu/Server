@@ -17,6 +17,7 @@ namespace Server
         public Form_EditWorker()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             command = Form_main.Command;
         }
 

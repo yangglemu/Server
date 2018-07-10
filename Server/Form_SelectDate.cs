@@ -15,6 +15,7 @@ namespace Server
         public Form_SelectDate()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
         }
 
         private void button1_Click(object sender, EventArgs e)

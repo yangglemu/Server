@@ -30,6 +30,7 @@ namespace Server
         public Form_Input_fs(string tm, string pm, string sj)
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             this.textBox1_副本份数.Select();
             this.textBox1_副本份数.SelectAll();
             _printdata = new PrintData();

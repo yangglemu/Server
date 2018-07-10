@@ -18,6 +18,7 @@ namespace Server
         public Form_rk_auto()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             command = Form_main.Command;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.ReadOnly = true;

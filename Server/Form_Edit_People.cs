@@ -21,6 +21,7 @@ namespace Server
         public Form_Edit_People()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             connection = Form_main.Connection;
             command = new MySqlCommand();
             command.Connection = connection;

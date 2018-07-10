@@ -7,12 +7,12 @@ using System.Resources;
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Server")]
-[assembly: AssemblyDescription("by yangglemu")]
+[assembly: AssemblyDescription("后台管理系统")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sunshine")]
-[assembly: AssemblyProduct("Server")]
+[assembly: AssemblyCompany("阳光服饰")]
+[assembly: AssemblyProduct("Server.exe")]
 [assembly: AssemblyCopyright("Copyright © yangglemu@qq.com 2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("@yangglemu")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 使此程序集中的类型

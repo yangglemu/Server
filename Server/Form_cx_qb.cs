@@ -17,6 +17,7 @@ namespace Server
         public Form_cx_qb()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             command = Form_main.Command;
         }
 

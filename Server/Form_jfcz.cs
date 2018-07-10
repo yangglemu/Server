@@ -18,6 +18,7 @@ namespace Server
         public Form_jfcz()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             command = Form_main.Command;
         }
 

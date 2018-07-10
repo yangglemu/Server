@@ -18,6 +18,7 @@ namespace Server
         public AddZL()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.yuan;
             this.command = Form_main.Command;
         }
 
