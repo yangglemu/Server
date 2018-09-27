@@ -138,14 +138,13 @@ namespace Server
             int syjf = this.xyjf + zj;
 
             MySqlTransaction tr = command.Connection.BeginTransaction();
-            string s = "insert into jfcz(bh,cz,czjf,syjf,czyy,rq,czy) values('";
+            string s = "insert into jfcz(bh,cz,czjf,syjf,czyy,rq) values('";
             s += textBox_hybh.Text + "', '";
             s += strZJ + "', '";
             s += zj.ToString() + "', '";
-            s += syjf.ToString() + "', '";
+            s += syjf.ToString() + "', '";//实有积分
             s += this.textBox_czyy.Text.Trim() + "', '";
-            s += DateTime.Now.ToString() + "', '";
-            s += (this.Owner as Form_main).worker.bh + "')";
+            s += DateTime.Now.ToString() + "')";            
             command.CommandText = s;
             try
             {
