@@ -34,7 +34,8 @@ namespace Server
                 root.SelectSingleNode("password").InnerText,
                 root.SelectSingleNode("database").InnerText);
             Form_main.printer = root.SelectSingleNode("tm_printer").InnerText;
-            var title = root.SelectSingleNode("name").InnerText;
+            Form_main.shop = root.SelectSingleNode("shop").InnerText;
+            if (Form_main.shop == null) throw new ArgumentNullException("Form_main.shop");
             link.label1.Text = "配置完毕，正在连接数据库 ……";
             Application.DoEvents();
             try
@@ -45,7 +46,6 @@ namespace Server
                 link.label1.Text = "数据库连接成功，启动主程序 ……";
                 Application.DoEvents();
                 Form mf = new Form_main();
-                mf.Text = title;
                 mf.Show();
                 link.Close();
                 Application.Run(mf);

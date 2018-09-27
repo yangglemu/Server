@@ -20,6 +20,7 @@ namespace Server
 {
     public partial class Form_main : Form
     {
+        public static string shop;
         public static string printer;
         private bool enabledPrint;
 
@@ -30,13 +31,15 @@ namespace Server
             {
                 this.enabledPrint = value;
                 this.打印条码ToolStripMenuItem.Enabled = value;
+                this.打印回扁ToolStripMenuItem.Enabled = value;
+                this.打印赠品ToolStripMenuItem.Enabled = value;
                 this.toolStripButton_打印.Enabled = value;
             }
         }
 
         public static Engine engine;
-        public static LabelFormatDocument _labeldoc;
-        public static LabelFormatDocument _labeldoc2;
+        private static LabelFormatDocument _labeldoc;
+        private static LabelFormatDocument _labeldoc2;
         private static LabelFormat _lf;
         private static LabelFormat _lf2;
 
@@ -48,6 +51,7 @@ namespace Server
                 Seagull.BarTender.Print.Messages msgs;
                 _labeldoc = engine.Documents.Open(_lf, out msgs);
                 _labeldoc.PrintSetup.PrinterName = Form_main.printer;
+                _labeldoc.SubStrings["shop"].Value = Form_main.shop;
                 return _labeldoc;
             }
         }
@@ -59,6 +63,7 @@ namespace Server
                 Seagull.BarTender.Print.Messages msgs;
                 _labeldoc2 = engine.Documents.Open(_lf2, out msgs);
                 _labeldoc2.PrintSetup.PrinterName = Form_main.printer;
+                _labeldoc2.SubStrings["shop"].Value = Form_main.shop;
                 return _labeldoc2;
             }
         }
@@ -95,6 +100,7 @@ namespace Server
         public Form_main()
         {
             InitializeComponent();
+            this.Text = Form_main.shop;
         }
 
         private void Form_main_Load(object sender, EventArgs e)
@@ -172,8 +178,8 @@ namespace Server
             f.Text = "商品资料";
             f.MdiParent = this;
             f.items.AddRange(new string[] { "售价", "品名", "条码" });
+            f.dataGridView.DataSource = dt;
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             this.dataGridView1.Columns["售价"].DefaultCellStyle.Format = "N2";
             if (this.dataGridView1.Columns["进价"] != null)
                 this.dataGridView1.Columns["进价"].DefaultCellStyle.Format = "N2";
@@ -220,8 +226,8 @@ namespace Server
             f.Text = "库存浏览";
             f.MdiParent = this;
             f.items.AddRange(new string[] { "售价", "条码", "品名", "库存", "供货商" });
+            f.dataGridView.DataSource = dt;
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             this.dataGridView1.Columns["售价"].DefaultCellStyle.Format = "N2";
             if (this.dataGridView1.Columns["进价"] != null)
                 this.dataGridView1.Columns["进价"].DefaultCellStyle.Format = "N2";
@@ -283,8 +289,8 @@ namespace Server
             f.MdiParent = this;
             f.Text = FormText;
             f.items.AddRange(new string[] { "单据号", "条码", "会员", "收银员" });
+            f.dataGridView.DataSource = dt;
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             string sl = "0";
             float je = 0;
             if (dt.Rows.Count > 0)
@@ -330,8 +336,8 @@ namespace Server
             Form_MDIChild f = new Form_MDIChild();
             f.MdiParent = this;
             f.items.AddRange(new string[] { "单据号", "会员号" });
+            f.dataGridView.DataSource = dt;
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             f.Text = FormText;
             string sl = "0";
             float je = 0;
@@ -442,8 +448,8 @@ namespace Server
             Form_MDIChild f = new Form_MDIChild();
             f.Text = "本日时段";
             f.MdiParent = this;
+            f.dataGridView.DataSource = dt;
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             this.dataGridView1.Columns["营业额"].DefaultCellStyle.Format = "N2";
             this.dataGridView1.Columns["客单价"].DefaultCellStyle.Format = "N2";
             if (total_lks > 0)
@@ -495,8 +501,8 @@ namespace Server
             Form_MDIChild f = new Form_MDIChild();
             f.Text = "本日分类" + _zm.ToString();
             f.MdiParent = this;
+            f.dataGridView.DataSource = dt;
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             this.SetColumnsWidth();
             f.toolStripStatusLabel1.Text = "【本日分类" + _zm + "】当前共【" + dt.Rows.Count + "】条记录";
             s = "select ifnull(sum(sale_mx.sl),0) from sale_mx left join(sale_db,goods) on(sale_db.djh=sale_mx.djh and goods.tm=sale_mx.tm) where goods.ghs='" + _zm + "' and  date(sale_db.rq)>='" + _start + "' and date(sale_db.rq)<='" + _end + "'";
@@ -537,8 +543,9 @@ namespace Server
             Form_MDIChild f = new Form_MDIChild();
             f.MdiParent = this;
             f.Text = "按日统计";
+            f.dataGridView.DataSource = dt;
+            f.dataGridView.Columns["日期"].DefaultCellStyle.Format = "yyyy-MM-dd  dddd";
             this.dataGridView1 = f.dataGridView;
-            this.dataGridView1.DataSource = dt;
             this.SetColumnsWidth();
             f.toolStripStatusLabel1.Text = "统计起始日【" + start + "】，截止日【" + end + "】，共【30】天";
             this.dataGridView1.Columns["金额"].DefaultCellStyle.Format = "N2";
@@ -991,12 +998,12 @@ namespace Server
                 return;
             string s = "select bh as 编号, ";
             s += "xm as 姓名, ";
-            s += "ljxf as `累计消费(元)`, ";
+            //s += "ljxf as `累计消费(元)`, ";
             s += "jf as 积分, ";
             s += "dh as 手机, ";
             s += "rmb as `充值(元)`, ";
-            s += "rq as 创建日期, ";
-            s += "czy as 操作员 ";
+            s += "rq as 创建日期 ";
+            //s += "czy as 操作员 ";
             s += "from people order by rq";
             command.CommandText = s;
             DataTable dt = new DataTable();
@@ -1097,8 +1104,8 @@ namespace Server
         {
             if (this.worker.qx == "低") return;
             string s = "select jfcz.bh as 会员号,people.xm as 会员姓名, jfcz.cz as 操作, ";
-            s += "jfcz.czjf as 操作积分, jfcz.syjf as 剩余积分, jfcz.czyy as 备注, jfcz.rq as 操作日期, ";
-            s += "jfcz.czy as 操作员 from jfcz left join(people) on(people.bh=jfcz.bh) order by jfcz.rq";
+            s += "jfcz.czjf as 操作积分, jfcz.syjf as 剩余积分, jfcz.czyy as 备注, jfcz.rq as 操作日期 ";
+            s += "from jfcz left join(people) on(people.bh=jfcz.bh) order by jfcz.rq";
             command.CommandText = s;
             DataTable dt = new DataTable();
             MySqlDataAdapter a = new MySqlDataAdapter(command);
@@ -1822,6 +1829,7 @@ namespace Server
 
         private void 打印条码ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!this.EnabledPrint) return;
             Form_Print_BarCode pb = new Form_Print_BarCode();
             pb.ShowDialog(this);
         }
@@ -2342,6 +2350,41 @@ namespace Server
         private void toolStripButton7_Click(object sender, EventArgs e)
         {
             this.查看备注ToolStripMenuItem_Click(null, null);
+        }
+
+        private void 打印赠品ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!this.EnabledPrint) return;
+            var input = new Form_Input();
+            input.Text = "请输入赠品价值：";
+            if (input.ShowDialog(this) != DialogResult.OK) return;
+            var zp_format = new LabelFormat(Application.StartupPath + "\\ZengPing.btw");
+            Seagull.BarTender.Print.Messages msgs;
+            var zp_document = engine.Documents.Open(zp_format, out msgs);
+            zp_document.PrintSetup.PrinterName = Form_main.printer;
+            zp_document.SubStrings["shop"].Value = Form_main.shop;
+            var sj = input.Input;
+            zp_document.SubStrings["sj"].Value = sj;
+            if (sj.Length < 3) sj = "0" + sj;
+            zp_document.SubStrings["tm"].Value = "010101" + sj;
+            zp_document.Print();
+            zp_document.Close(SaveOptions.DoNotSaveChanges);
+        }
+
+        private void 打印回扁ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!this.EnabledPrint) return;
+            var input = new Form_Input();
+            input.Text = "请输入打印份数";
+            if (input.ShowDialog(this) != DialogResult.OK) return;
+            var hb_format = new LabelFormat(Application.StartupPath + "\\HuiBian.btw");
+            Seagull.BarTender.Print.Messages msgs;
+            var hb_document = engine.Documents.Open(hb_format, out msgs);
+            hb_document.PrintSetup.PrinterName = Form_main.printer;
+            hb_document.SubStrings["shop"].Value = Form_main.shop;
+            hb_document.SubStrings["fs"].Value = input.Input;
+            hb_document.Print();
+            hb_document.Close(SaveOptions.DoNotSaveChanges);
         }
     }
 }

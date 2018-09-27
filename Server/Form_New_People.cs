@@ -56,7 +56,7 @@ namespace Server
                 textBox_xm.SelectAll();
                 return;
             }
-
+            /*
             string s = "select ifnull(count(*),0) from people where bh='";
             s += textBox_bh.Text + "'";
             command.CommandText = s;
@@ -69,7 +69,7 @@ namespace Server
                 textBox_bh.SelectAll();
                 return;
             }
-
+            */
             if (this.textBox_sj.Text.Trim().Length != 11)
             {
                 MessageBox.Show("手机号为11位");
@@ -89,21 +89,20 @@ namespace Server
             }
 
             Form_main main = this.Owner as Form_main;
-            s = "insert into people(bh,xm,xb,dh,rq,czy) values('";
+            var s = "insert into people(bh,xm,xb,dh,rq) values('";
             s += textBox_bh.Text.Trim() + "','";
             s += textBox_xm.Text.Trim() + "','";
             s += "女','";
             s += textBox_sj.Text.Trim() + "','";
-            s += DateTime.Now.ToString() + "','";
-            s += main.worker.bh + "')";
+            s += DateTime.Now.ToString() + "')";
             command.CommandText = s;
             try
             {
                 command.ExecuteNonQuery();
             }
-            catch
+            catch (Exception se)
             {
-                MessageBox.Show("添加新会员出错,请检查输入是否正确！");
+                MessageBox.Show("添加新会员出错,请检查输入是否正确！\r\n" + se.Message);
                 return;
             }
             MessageBox.Show("添加新会员成功！");
@@ -111,6 +110,15 @@ namespace Server
             this.textBox_xm.Clear();
             this.textBox_sj.Clear();
             this.textBox_bh.Select();
+        }
+
+        private void Form_New_People_Shown(object sender, EventArgs e)
+        {
+            var text = "select ifnull(max(bh),0)+1 from people";
+            command.CommandText = text;
+            var i = int.Parse(command.ExecuteScalar().ToString());
+            this.textBox_bh.Text = i.ToString("0000000");
+            this.textBox_xm.Select();
         }
     }
 }

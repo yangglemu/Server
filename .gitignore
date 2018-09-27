@@ -1,3 +1,10 @@
-*.suo
+#ignore
+#.gitignore
+
+#bin
 /*/[Bb]in/
+
+#obj
 /*/[Oo]bj/
+
+*.suo

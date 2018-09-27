@@ -53,6 +53,7 @@
             // 
             this.textBox_bh.Location = new System.Drawing.Point(55, 20);
             this.textBox_bh.Name = "textBox_bh";
+            this.textBox_bh.ReadOnly = true;
             this.textBox_bh.Size = new System.Drawing.Size(163, 21);
             this.textBox_bh.TabIndex = 1;
             this.textBox_bh.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
@@ -130,6 +131,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "添加新会员";
             this.TopMost = true;
+            this.Shown += new System.EventHandler(this.Form_New_People_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

@@ -70,21 +70,25 @@ namespace Server
             string s = this.textBox_sl.Text.Trim();
             if (s.Length > 0)
             {
-                int sl;
+                int sl;               
                 if (int.TryParse(s, out sl))
                 {
+                    return true;
+                    /*
                     if (sl > 0)
                     {
                         return true;
                     }
                     else
                     {
-                        MessageBox.Show("数量不能为负数或零！");
-                        this.textBox_sl.Select();
-                        this.textBox_sl.SelectAll();
-                        return false;
+                        //MessageBox.Show("数量不能为负数或零！");
+                        //this.textBox_sl.Select();
+                        //this.textBox_sl.SelectAll();
+                        //return false;
+                        return true;
                     }
-                }
+                     */ 
+                }                     
             }
             MessageBox.Show("数量输入有错！");
             this.textBox_sl.Select();

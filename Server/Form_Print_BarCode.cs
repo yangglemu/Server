@@ -33,6 +33,15 @@ namespace Server
             tm = this.textBox1_tm.Text.Trim();///////tm
             if (tm.Length < 1 || tm.Length > 15)
                 return false;
+            if (tm.Length < 4 && tm.Length > 0)
+            {
+                int i;
+                if (int.TryParse(tm, out i))
+                {
+                    tm = "010101" + i.ToString("000");
+                    this.textBox1_tm.Text = tm;
+                }
+            }
             string sql = string.Format("select pm,sj from goods where tm='{0}'", tm);
             command.CommandText = sql;
             MySqlDataReader dr = command.ExecuteReader();
@@ -116,6 +125,7 @@ namespace Server
                 doc = Form_main.labeldoc;
             else
                 doc = Form_main.labeldoc2;
+            doc.SubStrings["shop"].Value = Form_main.shop;
             doc.SubStrings["tm"].Value = this.tm;
             doc.SubStrings["pm"].Value = this.pm;
             doc.SubStrings["sj"].Value = this.dj;
