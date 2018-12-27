@@ -172,7 +172,7 @@ namespace Server
         private bool CheckTM()
         {
             string s = this.textBox_tm.Text.Trim();
-            if (s.Length == 9)
+            if (s.Length == 9 || s.Length == 10)
             {
                 foreach (char c in s)
                 {
