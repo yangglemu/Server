@@ -179,6 +179,7 @@
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.导出XLS按价格toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -664,14 +665,14 @@
             // 专卖ToolStripMenuItem
             // 
             this.专卖ToolStripMenuItem.Name = "专卖ToolStripMenuItem";
-            this.专卖ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.专卖ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.专卖ToolStripMenuItem.Text = "专卖商品";
             this.专卖ToolStripMenuItem.Click += new System.EventHandler(this.专卖ToolStripMenuItem_Click);
             // 
             // 自营ToolStripMenuItem
             // 
             this.自营ToolStripMenuItem.Name = "自营ToolStripMenuItem";
-            this.自营ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.自营ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.自营ToolStripMenuItem.Text = "自营商品";
             this.自营ToolStripMenuItem.Click += new System.EventHandler(this.自营ToolStripMenuItem_Click);
             // 
@@ -753,6 +754,7 @@
             // 
             this.toolStripMenuItem_盘点.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.导出XLSToolStripMenuItem,
+            this.导出XLS按价格toolStripMenuItem2,
             this.导出销售数据toolStripMenuItem12,
             this.清空ToolStripMenuItem,
             this.自动核对toolStripMenuItem11,
@@ -770,8 +772,8 @@
             this.导出XLSToolStripMenuItem.Image = global::Server.Properties.Resources.Arc;
             this.导出XLSToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.导出XLSToolStripMenuItem.Name = "导出XLSToolStripMenuItem";
-            this.导出XLSToolStripMenuItem.Size = new System.Drawing.Size(168, 38);
-            this.导出XLSToolStripMenuItem.Text = "导出库存数据";
+            this.导出XLSToolStripMenuItem.Size = new System.Drawing.Size(208, 38);
+            this.导出XLSToolStripMenuItem.Text = "导出库存数据(按条码)";
             this.导出XLSToolStripMenuItem.Click += new System.EventHandler(this.导出XLSToolStripMenuItem_Click);
             // 
             // 导出销售数据toolStripMenuItem12
@@ -779,7 +781,7 @@
             this.导出销售数据toolStripMenuItem12.Image = global::Server.Properties.Resources.Arc;
             this.导出销售数据toolStripMenuItem12.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.导出销售数据toolStripMenuItem12.Name = "导出销售数据toolStripMenuItem12";
-            this.导出销售数据toolStripMenuItem12.Size = new System.Drawing.Size(168, 38);
+            this.导出销售数据toolStripMenuItem12.Size = new System.Drawing.Size(208, 38);
             this.导出销售数据toolStripMenuItem12.Text = "导出销售数据";
             this.导出销售数据toolStripMenuItem12.Click += new System.EventHandler(this.导出销售数据toolStripMenuItem12_Click);
             // 
@@ -789,7 +791,7 @@
             this.清空ToolStripMenuItem.Image = global::Server.Properties.Resources.Eraser;
             this.清空ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.清空ToolStripMenuItem.Name = "清空ToolStripMenuItem";
-            this.清空ToolStripMenuItem.Size = new System.Drawing.Size(168, 38);
+            this.清空ToolStripMenuItem.Size = new System.Drawing.Size(208, 38);
             this.清空ToolStripMenuItem.Text = "清空库存数据";
             this.清空ToolStripMenuItem.Click += new System.EventHandler(this.清空库存ToolStripMenuItem_Click);
             // 
@@ -798,21 +800,21 @@
             this.自动核对toolStripMenuItem11.Image = global::Server.Properties.Resources.Chartxy;
             this.自动核对toolStripMenuItem11.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.自动核对toolStripMenuItem11.Name = "自动核对toolStripMenuItem11";
-            this.自动核对toolStripMenuItem11.Size = new System.Drawing.Size(168, 38);
+            this.自动核对toolStripMenuItem11.Size = new System.Drawing.Size(208, 38);
             this.自动核对toolStripMenuItem11.Text = "自动核对数据";
             this.自动核对toolStripMenuItem11.Click += new System.EventHandler(this.自动核对toolStripMenuItem11_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(165, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(205, 6);
             // 
             // toolStripMenuItem16扫描自动入库
             // 
             this.toolStripMenuItem16扫描自动入库.Image = global::Server.Properties.Resources.Camera;
             this.toolStripMenuItem16扫描自动入库.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem16扫描自动入库.Name = "toolStripMenuItem16扫描自动入库";
-            this.toolStripMenuItem16扫描自动入库.Size = new System.Drawing.Size(168, 38);
+            this.toolStripMenuItem16扫描自动入库.Size = new System.Drawing.Size(208, 38);
             this.toolStripMenuItem16扫描自动入库.Text = "扫描自动入库";
             this.toolStripMenuItem16扫描自动入库.Click += new System.EventHandler(this.toolStripMenuItem16扫描自动入库_Click);
             // 
@@ -822,7 +824,7 @@
             this.导入库存数据ToolStripMenuItem.Image = global::Server.Properties.Resources.Exit;
             this.导入库存数据ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.导入库存数据ToolStripMenuItem.Name = "导入库存数据ToolStripMenuItem";
-            this.导入库存数据ToolStripMenuItem.Size = new System.Drawing.Size(168, 38);
+            this.导入库存数据ToolStripMenuItem.Size = new System.Drawing.Size(208, 38);
             this.导入库存数据ToolStripMenuItem.Text = "导入库存数据";
             this.导入库存数据ToolStripMenuItem.Click += new System.EventHandler(this.导入盘点数据ToolStripMenuItem_Click);
             // 
@@ -1550,6 +1552,13 @@
             this.toolStripButton7.ToolTipText = "查看备注";
             this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
             // 
+            // 导出XLS按价格toolStripMenuItem2
+            // 
+            this.导出XLS按价格toolStripMenuItem2.Name = "导出XLS按价格toolStripMenuItem2";
+            this.导出XLS按价格toolStripMenuItem2.Size = new System.Drawing.Size(208, 38);
+            this.导出XLS按价格toolStripMenuItem2.Text = "导出库存数据(按价格)";
+            this.导出XLS按价格toolStripMenuItem2.Click += new System.EventHandler(this.导出XLS按价格toolStripMenuItem2_Click);
+            // 
             // Form_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1729,6 +1738,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
         private System.Windows.Forms.ToolStripButton toolStripButton6;
         private System.Windows.Forms.ToolStripButton toolStripButton7;
+        private System.Windows.Forms.ToolStripMenuItem 导出XLS按价格toolStripMenuItem2;
     }
 }
 

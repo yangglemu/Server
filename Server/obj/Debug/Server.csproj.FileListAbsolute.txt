@@ -40,3 +40,4 @@ D:\VS2013\Server\Server\obj\Debug\Server.Properties.Resources.resources
 D:\VS2013\Server\Server\obj\Debug\Server.csproj.GenerateResource.Cache
 D:\VS2013\Server\Server\obj\Debug\Server.exe
 D:\VS2013\Server\Server\obj\Debug\Server.pdb
+D:\VS2013\Server\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
