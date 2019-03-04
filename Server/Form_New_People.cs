@@ -43,9 +43,9 @@ namespace Server
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox_bh.Text.Trim().Length != 7 && textBox_bh.Text.Trim().Length != 8)
+            if (textBox_bh.Text.Trim().Length < 1 && textBox_bh.Text.Trim().Length > 12)
             {
-                MessageBox.Show("会员编号为7或8位");
+                MessageBox.Show("会员编号为12位以下数字!");
                 textBox_bh.Select();
                 textBox_bh.SelectAll();
                 return;
@@ -90,21 +90,20 @@ namespace Server
             }
 
             Form_main main = this.Owner as Form_main;
-            s = "insert into people(bh,xm,xb,dh,rq,czy) values('";
+            s = "insert into people(bh,xm,dh,rq) values('";
             s += textBox_bh.Text.Trim() + "','";
             s += textBox_xm.Text.Trim() + "','";
-            s += "女','";
             s += textBox_sj.Text.Trim() + "','";
-            s += DateTime.Now.ToString() + "','";
-            s += main.worker.bh + "')";
+            s += DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+            //MessageBox.Show(s);
             command.CommandText = s;
             try
             {
                 command.ExecuteNonQuery();
             }
-            catch
+            catch (Exception se)
             {
-                MessageBox.Show("添加新会员出错,请检查输入是否正确！");
+                MessageBox.Show("添加新会员出错,请检查输入是否正确！\r\n" + se.Message);
                 return;
             }
             MessageBox.Show("添加新会员成功！");

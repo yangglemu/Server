@@ -30,10 +30,36 @@ namespace Server
         }
 
         public bool CheckTM()
-        {
+        {            
             tm = this.textBox1_tm.Text.Trim();///////tm
+            if (tm.StartsWith("zp"))
+            {
+                var s = string.Format("select pm,sj from zp_goods where tm='{0}'", tm);
+                command.CommandText = s;
+                var r = command.ExecuteReader();
+                if (r.Read())
+                {
+                    this.pm = this.textBox_pm.Text = r.GetString(0);
+                    this.dj = r.GetFloat(1).ToString("N2");/////////////dj
+                    this.dj = this.textBox3_dj.Text = "￥" + dj;
+                }
+                r.Close();
+                if (this.textBox_pm.TextLength == 0)
+                {
+                    MessageBox.Show("不存在的条码！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.textBox1_tm.Select();
+                    this.textBox1_tm.SelectAll();
+                    return false;
+                }
+                this.textBox1_tm.ReadOnly = true;
+                this.textBox4_fs.Select();
+                this.textBox4_fs.SelectAll();
+                return true;
+            }
             if (tm.Length < 1 || tm.Length > 15)
                 return false;
+            tm = Form_main.GetLongTM(tm);
+            this.textBox1_tm.Text = tm;
             string sql = string.Format("select pm,sj from goods where tm='{0}'", tm);
             command.CommandText = sql;
             MySqlDataReader dr = command.ExecuteReader();

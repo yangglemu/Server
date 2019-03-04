@@ -30,7 +30,15 @@ namespace Server
                 return true;
             }
             string s = this.textBox_tm.Text.Trim();
-            if (s.Length > 0 && s.Length < 15)
+            if (s.Length > 0 && s.Length < 5)
+            {
+                int i;
+                if (int.TryParse(s, out i))
+                {
+                    s = "zp" + i.ToString("0000");                   
+                }
+            }
+            if (s.Length > 0 && s.Length < 7)
             {
                 command.CommandText = "select pm,jj,sj from zp_goods where tm='" + s + "'";
                 MySqlDataReader dr = command.ExecuteReader();
@@ -39,6 +47,7 @@ namespace Server
                     this.textBox_pm.Text = dr.GetString(0);
                     this.textBox_jj.Text = dr.GetFloat(1).ToString("N2");
                     this.textBox_sj.Text = dr.GetFloat(2).ToString("N2");
+                    this.textBox_tm.Text = s;
                     this.textBox_tm.ReadOnly = true;
                     this.textBox_sl.Select();
                     dr.Close();
@@ -113,7 +122,7 @@ namespace Server
                     command.ExecuteNonQuery();//更新库存
                 }
                 s = string.Format("insert into {0}(rq,tm,czy,sl) values('{1}','{2}','{3}',{4})",
-                    db, DateTime.Now.ToString(), this.textBox_tm.Text, f.worker.bh, this.textBox_sl.Text);
+                    db, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), this.textBox_tm.Text, f.worker.bh, this.textBox_sl.Text);
                 command.CommandText = s;
                 command.ExecuteNonQuery();//添加入库操作记录
                 tr.Commit();

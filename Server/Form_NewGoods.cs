@@ -174,14 +174,18 @@ namespace Server
         private bool CheckTM()
         {
             string s = this.textBox_tm.Text.Trim();
-            if (s.Length == 9)
+
+            if (s.Length == 9 || db.StartsWith("zp"))
             {
-                foreach (char c in s)
+                if (s.Length == 9)
                 {
-                    if (!char.IsNumber(c))
+                    foreach (char c in s)
                     {
-                        MessageBox.Show("调码不要输入0~9之外的字符！");
-                        return false;
+                        if (!char.IsNumber(c))
+                        {
+                            MessageBox.Show("调码不要输入0~9之外的字符！");
+                            return false;
+                        }
                     }
                 }
                 string ss = string.Format("select count(*) from {0} where tm='{1}'", db, s);
@@ -223,8 +227,8 @@ namespace Server
             string s = this.textBox_jj.Text.Trim();
             if (s.Length > 0)
             {
-                float f;
-                if (float.TryParse(s, out f))
+                int f;
+                if (int.TryParse(s, out f))
                 {
                     if (f > 0)
                         return true;
@@ -315,15 +319,24 @@ namespace Server
             if (!CheckGHS())
                 return;
 
-            string str = string.Format("insert into {0}(tm,pm,jj,sj,zq,hyzq,ghs) values(", db);
-            str += "'" + this.textBox_tm.Text.Trim() + "',";//tm
-            str += "'" + this.textBox_pm.Text.Trim() + "',";//pm
-            str += this.textBox_jj.Text.Trim() + ",";//jj
-            str += this.textBox_sj.Text.Trim() + ",";//sj
-            str += this.textBox_ptzq.Text.Trim() + ",";//ptzq;
-            str += this.textBox_hyzq.Text.Trim() + ",'";//hyzq
-            Ghs ghs = this.textBox_ghs.SelectedItem as Ghs;
-            str += ghs.bh + "')";//ghs
+            string str = null;
+            if (db.StartsWith("zp"))
+            {
+                str = string.Format("insert into zp_goods (tm,pm,jj,sj,zq,hyzq,ghs) values('{0}','赠品',{1},{2},1.0,1.0,'1001')",
+                    textBox_tm.Text, textBox_jj.Text, textBox_sj.Text);
+            }
+            else
+            {
+                str = string.Format("insert into {0}(tm,pm,jj,sj,zq,hyzq,ghs) values(", db);
+                str += "'" + this.textBox_tm.Text.Trim() + "',";//tm
+                str += "'" + this.textBox_pm.Text.Trim() + "',";//pm
+                str += this.textBox_jj.Text.Trim() + ",";//jj
+                str += this.textBox_sj.Text.Trim() + ",";//sj
+                str += this.textBox_ptzq.Text.Trim() + ",";//ptzq;
+                str += this.textBox_hyzq.Text.Trim() + ",'";//hyzq
+                Ghs ghs = this.textBox_ghs.SelectedItem as Ghs;
+                str += ghs.bh + "')";//ghs
+            }
             command.CommandText = str;
             try
             {
@@ -342,6 +355,16 @@ namespace Server
 
         private void Form_NewGoods_Load(object sender, EventArgs e)
         {
+            if (db.StartsWith("zp"))
+            {
+                this.comboBox小类.Items.Add("赠品");
+                this.comboBox小类.SelectedIndex = 0;
+                this.comboBox中类.Items.Add("赠品");
+                this.comboBox中类.SelectedIndex = 0;
+                this.comboBox大类.Items.Add("赠品");
+                this.comboBox大类.SelectedIndex = 0;
+                return;
+            }
             this.SetCombox1();
         }
 
@@ -362,6 +385,12 @@ namespace Server
 
         private void comboBox小类_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (db.StartsWith("zp"))
+            {
+                this.textBox_tm.Text = "zp0000";
+                this.textBox_pm.Text = "赠品";               
+                return;
+            }
             string tm = this.textBox_tm.Text;
             tm = tm.Remove(0, 6);
             tm = (this.comboBox小类.SelectedItem as GoodsClass).dnm + tm;
@@ -375,10 +404,22 @@ namespace Server
 
         private void comboBox中类_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (db.StartsWith("zp"))
+            {
+                this.textBox_tm.Text = "zp0000";
+                this.textBox_pm.Text = "赠品";                
+                return;
+            }
             this.SetCombox3();
         }
         private void comboBox大类_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (db.StartsWith("zp"))
+            {
+                this.textBox_tm.Text = "zp0000";
+                this.textBox_pm.Text = "赠品";                
+                return;
+            }
             this.SetCombox2();
         }
 
@@ -424,19 +465,34 @@ namespace Server
 
         private void textBox_sj_TextChanged(object sender, EventArgs e)
         {
-            if (this.textBox_tm.TextLength < 6)
+            if (this.textBox_tm.TextLength < 3)
                 return;
 
-            float f;
+            int f;
             string tm = this.textBox_tm.Text;
-            tm = tm.Remove(6);
-            if (float.TryParse(this.textBox_sj.Text.Trim(), out f))
+            if (db.StartsWith("zp"))
             {
-                tm += f.ToString("000");
+                tm = "zp";
+                if (int.TryParse(this.textBox_sj.Text.Trim(), out f))
+                {
+                    tm += f.ToString("0000");
+                }
+                else
+                {
+                    tm += "XXX";
+                }
             }
             else
             {
-                tm += "XXX";
+                tm = tm.Remove(6);
+                if (int.TryParse(this.textBox_sj.Text.Trim(), out f))
+                {
+                    tm += f.ToString("000");
+                }
+                else
+                {
+                    tm += "XXX";
+                }
             }
             this.textBox_tm.Text = tm;
         }

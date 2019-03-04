@@ -46,7 +46,7 @@ namespace Server
 
                 case Keys.Return:
                     string tm = this.textBox_hybh.Text.Trim();
-                    if (tm.Length == 7 || tm.Length == 8)
+                    if (tm.Length >= 1 || tm.Length <= 12)
                     {
                         string s = "select xm,jf from people where bh='";
                         s += tm + "'";
@@ -145,7 +145,7 @@ namespace Server
             s += zj.ToString() + "', '";
             s += syjf.ToString() + "', '";
             s += this.textBox_czyy.Text.Trim() + "', '";
-            s += DateTime.Now.ToString() + "', '";
+            s += DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '";
             s += (this.Owner as Form_main).worker.bh + "')";
             command.CommandText = s;
             try

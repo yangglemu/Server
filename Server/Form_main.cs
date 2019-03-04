@@ -120,8 +120,8 @@ namespace Server
             }
             this.toolStripStatusLabel1.Text = "当前操作员：" + this.worker.xm;
             this.backgroundWorker1.DoWork += this.GetPrinter;
-            this.backgroundWorker1.RunWorkerAsync();
             this.backgroundWorker1.RunWorkerCompleted += this.SetPrinterToEnable;
+            this.backgroundWorker1.RunWorkerAsync();
         }
 
         private void SetPrinterToEnable(object sender, RunWorkerCompletedEventArgs e)
@@ -150,7 +150,21 @@ namespace Server
                     return;
                 }
             }
-        }        
+        }
+
+        public static string GetLongTM(string tm)
+        {
+            string s = tm;
+            if (s.Length < 5 && s.Length > 0)
+            {
+                int i;
+                if (int.TryParse(tm, out i))
+                {
+                    s = "010101" + i.ToString("000");
+                }
+            }
+            return s;
+        }
 
         private void 新建ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -992,20 +1006,13 @@ namespace Server
         {
             if (this.worker.qx == "低")
                 return;
-            string s = "select bh as 编号, ";
-            s += "xm as 姓名, ";
-            s += "ljxf as `累计消费(元)`, ";
-            s += "jf as 积分, ";
-            s += "dh as 手机, ";
-            s += "rmb as `充值(元)`, ";
-            s += "rq as 创建日期, ";
-            s += "czy as 操作员 ";
-            s += "from people order by rq";
+            string s = "select bh as 编号, xm as 姓名, ljxf as `累计消费(元)`, jf as 积分, dh as 手机, rmb as `充值(元)`, ";
+            s += "rq as 创建日期 from people order by rq";
             command.CommandText = s;
             DataTable dt = new DataTable();
             MySqlDataAdapter a = new MySqlDataAdapter(command);
             a.Fill(dt);
-
+            //MessageBox.Show(dt.Rows.Count.ToString());
             Form_MDIChild child = new Form_MDIChild();
             child.MdiParent = this;
             child.Text = "会员浏览";
@@ -2021,10 +2028,10 @@ namespace Server
 
                 tr.Commit();
             }
-            catch
+            catch (Exception se)
             {
                 tr.Rollback();
-                MessageBox.Show("入库操作失败！回滚。");
+                MessageBox.Show(se.Message, "入库操作失败！回滚。");
                 return;
             }
             MessageBox.Show("入库操作成功！\r\n更新" + dataGridView1.Rows.Count + "条库存数据。",
@@ -2072,19 +2079,19 @@ namespace Server
             if (this.dataGridView1.Columns["进价"] != null)
                 this.dataGridView1.Columns["进价"].DefaultCellStyle.Format = "N2";
 
-            sql = "select ifnull(sum(kc),0) from goods";
+            sql = "select ifnull(sum(kc),0) from zp_goods";
             command.CommandText = sql;
             int kc = int.Parse(command.ExecuteScalar().ToString());
-            sql = "select ifnull(sum(jj*kc),0.0) from goods";
+            sql = "select ifnull(sum(jj*kc),0.0) from zp_goods";
             command.CommandText = sql;
             float jjkc = float.Parse(command.ExecuteScalar().ToString());
-            sql = "select ifnull(sum(sj*kc),0.0) from goods";
+            sql = "select ifnull(sum(sj*kc),0.0) from zp_goods";
             command.CommandText = sql;
             float sjkc = float.Parse(command.ExecuteScalar().ToString());
-            sql = "select ifnull(sum(sj*zq*kc),0.0) from goods";
+            sql = "select ifnull(sum(sj*zq*kc),0.0) from zp_goods";
             command.CommandText = sql;
             float zqkc = float.Parse(command.ExecuteScalar().ToString());
-            sql = "select ifnull(sum(sj*hyzq*kc),0) from goods";
+            sql = "select ifnull(sum(sj*hyzq*kc),0) from zp_goods";
             command.CommandText = sql;
             float hyzqkc = float.Parse(command.ExecuteScalar().ToString());
             child.toolStripStatusLabel1.Text = "当前共【" + dt.Rows.Count + "】条记录";
@@ -2378,6 +2385,58 @@ namespace Server
             hb_document.SubStrings["fs"].Value = input.Input;
             hb_document.Print();
             hb_document.Close(SaveOptions.DoNotSaveChanges);
+        }
+
+        private void 导出XLS按价格toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (this.worker.qx == "低")
+                return;
+
+            SaveFileDialog sd = new SaveFileDialog();
+            sd.DefaultExt = "xls";
+            sd.AddExtension = true;
+            sd.Title = "指定要要导出的文件名及存放位置";
+            sd.Filter = "文件文件(*.xls)|*.xls";
+            if (sd.ShowDialog() == DialogResult.OK)
+            {
+                HSSFWorkbook book = new HSSFWorkbook();
+                ISheet sheet = book.CreateSheet("导出的库存文件");
+                string s = "select sj,sum(kc) as kc from goods where kc!=0 group by sj";
+                command.CommandText = s;
+                MySqlDataReader dr = command.ExecuteReader();
+                int i = 0;
+
+                ICellStyle style = book.CreateCellStyle();
+                IDataFormat format = book.CreateDataFormat();
+                style.DataFormat = format.GetFormat("0.00");
+                style.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;
+
+                ICellStyle style_all = book.CreateCellStyle();
+                style_all.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;
+
+                while (dr.Read())
+                {
+                    IRow row = sheet.CreateRow(i);
+               
+                    //sj
+                    ICell cell = null;
+                    cell = row.CreateCell(0);
+                    cell.CellStyle = style;
+                    cell.SetCellValue(dr.GetFloat(0));
+                    //kc
+                    cell = row.CreateCell(1);
+                    cell.CellStyle = style_all;
+                    cell.SetCellValue(dr.GetInt32(1));
+                    i++;
+                }
+                dr.Close();
+                sheet.SetColumnWidth(0, 8 * 256);
+                sheet.SetColumnWidth(1, 6 * 256);
+                FileStream fs = new FileStream(sd.FileName, FileMode.Create, FileAccess.Write);
+                book.Write(fs);
+                fs.Close();
+                MessageBox.Show("导出成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

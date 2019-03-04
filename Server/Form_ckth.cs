@@ -63,18 +63,7 @@ namespace Server
                 return true;
             }
             string s = this.textBox_tm.Text.Trim();
-            if (s.Length < 4)
-            {
-                int x;
-                if (Int32.TryParse(s, out x))
-                {
-                    s = "010101" + x.ToString("000");
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            s = Form_main.GetLongTM(s);            
             if (s.Length > 0 && s.Length < 15)
             {
                 command.CommandText = "select pm,jj,sj from goods where tm='" + s + "'";
@@ -84,6 +73,7 @@ namespace Server
                     this.textBox_pm.Text = dr.GetString(0);
                     this.textBox_jj.Text = dr.GetFloat(1).ToString("N2");
                     this.textBox_sj.Text = dr.GetFloat(2).ToString("N2");
+                    //s = Form_main.GetLongTM(s);
                     tm = s;
                     this.textBox_tm.Text = tm;
                     this.textBox_tm.ReadOnly = true;
@@ -145,7 +135,7 @@ namespace Server
             {
                 command.ExecuteNonQuery();
                 s = string.Format("insert into ck(rq,tm,czy,sl,bz) values('{0}','{1}','{2}',{3},'{4}')",
-                    DateTime.Now.ToString(), tm, f.worker.bh, this.textBox_sl.Text, this.yy);
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), tm, f.worker.bh, this.textBox_sl.Text, this.yy);
                 command.CommandText = s;
                 command.ExecuteNonQuery();
                 tr.Commit();

@@ -82,7 +82,7 @@ namespace Server
                 this.textBox_mm.Text,
                 this.comboBox1.Text,
                 this.textBox_dh.Text,
-                DateTime.Now.ToString());
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             command.CommandText = s;
             command.ExecuteNonQuery();
             MessageBox.Show("添加新员工成功！");

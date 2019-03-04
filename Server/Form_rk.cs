@@ -13,6 +13,7 @@ namespace Server
 {
     public partial class Form_rk : Form
     {
+        static string format = "yyyy-MM-dd HH:mm:ss";
         protected MySqlCommand command;
 
         public Form_rk()
@@ -22,22 +23,14 @@ namespace Server
             command = Form_main.Command;
             this.textBox_tm.Select();
         }
-
+        
         protected bool CheckTM(string s)
         {
             if (this.textBox_tm.ReadOnly)
             {
                 return true;
             }
-            if (s.Length < 4 && s.Length > 0)
-            {
-                int i;
-                if (int.TryParse(s, out i))
-                {
-                    s = "010101" + i.ToString("000");
-                    this.textBox_tm.Text = s;
-                }
-            }
+            s = Form_main.GetLongTM(s);
             if (s.Length > 0 && s.Length < 15)
             {
                 command.CommandText = "select pm,jj,sj from goods where tm='" + s + "'";
@@ -47,6 +40,7 @@ namespace Server
                     this.textBox_pm.Text = dr.GetString(0);
                     this.textBox_jj.Text = dr.GetFloat(1).ToString("N2");
                     this.textBox_sj.Text = dr.GetFloat(2).ToString("N2");
+                    this.textBox_tm.Text = s;
                     this.textBox_tm.ReadOnly = true;
                     this.textBox_sl.Select();
                     dr.Close();
@@ -121,7 +115,7 @@ namespace Server
                     command.ExecuteNonQuery();//更新库存
                 }
                 s = string.Format("insert into {0}(rq,tm,czy,sl) values('{1}','{2}','{3}',{4})",
-                    db, DateTime.Now.ToString(), this.textBox_tm.Text, f.worker.bh, this.textBox_sl.Text);
+                    db, DateTime.Now.ToString(format), this.textBox_tm.Text, f.worker.bh, this.textBox_sl.Text);
                 command.CommandText = s;
                 command.ExecuteNonQuery();//添加入库操作记录
                 tr.Commit();

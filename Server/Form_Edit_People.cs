@@ -35,9 +35,9 @@ namespace Server
                     this.Close();
                     break;
                 case Keys.Return:
-                    if (textBox_bh.Text.Trim().Length != 7)
+                    if (textBox_bh.Text.Trim().Length < 1 || textBox_bh.Text.Trim().Length > 12)
                     {
-                        MessageBox.Show("会员编号为7位");
+                        MessageBox.Show("会员编号为12位以下数字");
                         textBox_bh.Select();
                         textBox_bh.SelectAll();
                         return;

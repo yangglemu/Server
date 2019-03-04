@@ -63,7 +63,15 @@ namespace Server
                 return true;
             }
             string s = this.textBox_tm.Text.Trim();
-            if (s.Length > 0 && s.Length < 15)
+            if (s.Length > 0 && s.Length < 5)
+            {
+                int i;
+                if (int.TryParse(s, out i))
+                {
+                    s = "zp" + i.ToString("0000");
+                }
+            }
+            if (s.Length > 0 && s.Length < 7)
             {
                 command.CommandText = "select pm,jj,sj from zp_goods where tm='" + s + "'";
                 MySqlDataReader dr = command.ExecuteReader();
@@ -72,6 +80,7 @@ namespace Server
                     this.textBox_pm.Text = dr.GetString(0);
                     this.textBox_jj.Text = dr.GetFloat(1).ToString("N2");
                     this.textBox_sj.Text = dr.GetFloat(2).ToString("N2");
+                    this.textBox_tm.Text = s;
                     this.textBox_tm.ReadOnly = true;
                     this.textBox_sl.Select();
                     dr.Close();
@@ -85,7 +94,7 @@ namespace Server
                     return false;
                 }
             }
-            MessageBox.Show("条码输入有误！其值为9位字符串");
+            MessageBox.Show("条码输入有误！其值为6位字符串");
             this.textBox_tm.Select();
             this.textBox_tm.SelectAll();
             return false;
@@ -130,7 +139,7 @@ namespace Server
             {
                 command.ExecuteNonQuery();
                 s = string.Format("insert into zp_ck(rq,tm,czy,sl,bz) values('{0}','{1}','{2}',{3},'{4}')",
-                    DateTime.Now.ToString(), this.textBox_tm.Text, f.worker.bh, this.textBox_sl.Text, this.yy);
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), this.textBox_tm.Text, f.worker.bh, this.textBox_sl.Text, this.yy);
                 command.CommandText = s;
                 command.ExecuteNonQuery();
                 tr.Commit();

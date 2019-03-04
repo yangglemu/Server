@@ -129,7 +129,7 @@ namespace Server
                 }
                 s = string.Format("insert into {0}(rq,tm,czy,sl) values('{1}','{2}','{3}',{4})",
                     this.GetDatabaseName(),
-                    DateTime.Now.ToString(), this.textBox_tm.Text, f.worker.bh, this.textBox_sl.Text);
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), this.textBox_tm.Text, f.worker.bh, this.textBox_sl.Text);
                 command.CommandText = s;
                 command.ExecuteNonQuery();//添加入库操作记录
                 tr.Commit();
