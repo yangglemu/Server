@@ -68,10 +68,12 @@ namespace Server
                             rk_gj.ShowDialog(this.Owner);
                         this.textBox_jj.Clear();
                         this.textBox_sj.Clear();
+                        /*
                         var tm = this.textBox_tm.Text;
                         tm = tm.Remove(6);
                         tm += "XXX";
                         this.textBox_tm.Text = tm;
+                         * */
                         rk_gj.Close();
                     }
                     break;
@@ -85,10 +87,12 @@ namespace Server
                         print.ShowDialog(this.Owner);
                     this.textBox_jj.Clear();
                     this.textBox_sj.Clear();
+                    /*
                     var tm2 = this.textBox_tm.Text;
                     tm2 = tm2.Remove(6);
                     tm2 += "XXX";
                     this.textBox_tm.Text = tm2;
+                     * */
                     print.Close();
                     break;
                 case Keys.Escape:
@@ -172,13 +176,13 @@ namespace Server
         private bool CheckTM()
         {
             string s = this.textBox_tm.Text.Trim();
-            if (s.Length == 9 || s.Length == 10)
+            if (s.Length >= 1 && s.Length <= 10)
             {
                 foreach (char c in s)
                 {
                     if (!char.IsNumber(c))
                     {
-                        MessageBox.Show("调码不要输入0~9之外的字符！");
+                        MessageBox.Show("条码不要输入0~9之外的字符！");
                         return false;
                     }
                 }
@@ -199,7 +203,7 @@ namespace Server
             }
             else
             {
-                MessageBox.Show("条码输入应为长度9位数字串！");
+                MessageBox.Show("条码输入应为长度1-10位数字串！");
             }
             this.textBox_jj.Select();
             this.textBox_jj.SelectAll();
@@ -422,6 +426,7 @@ namespace Server
 
         private void textBox_sj_TextChanged(object sender, EventArgs e)
         {
+            /*
             if (this.textBox_tm.TextLength < 6)
                 return;
 
@@ -435,8 +440,8 @@ namespace Server
             else
             {
                 tm += "XXX";
-            }
-            this.textBox_tm.Text = tm;
+            }*/
+            this.textBox_tm.Text = this.textBox_sj.Text.Trim();
         }
     }
 }
