@@ -1,9 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <config>
-  <name>阳光服饰</name>
   <ip>127.0.0.1</ip>
   <user>root</user>
   <password>yuanbo960502</password>
-  <database>duobao</database>
-  <tm_printer>TSC TTP-245</tm_printer>  
+  <database>wkl</database>
+  <printer>5830 Series</printer>
+  <tm_printer>Gprinter GP-3120TU</tm_printer>
+  <shop>新时代服饰</shop>
+  <address>天门多宝</address>
+  <font>
+    <title size="11.0">微软雅黑</title>
+    <font size="9.0"  >微软雅黑</font>
+    <height>0.8</height>
+  </font>
+  <position>
+    <x1>13</x1>
+    <x2>24</x2>
+    <x3>35</x3>
+  </position>
 </config>

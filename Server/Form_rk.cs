@@ -28,6 +28,7 @@ namespace Server
             {
                 return true;
             }
+            /*
             if (s.Length < 4 && s.Length > 0)
             {
                 int i;
@@ -37,6 +38,7 @@ namespace Server
                     this.textBox_tm.Text = s;
                 }
             }
+             */
             if (s.Length > 0 && s.Length < 15)
             {
                 command.CommandText = "select pm,jj,sj from goods where tm='" + s + "'";
