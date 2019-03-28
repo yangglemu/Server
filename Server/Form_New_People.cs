@@ -43,9 +43,9 @@ namespace Server
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox_bh.Text.Trim().Length < 1 && textBox_bh.Text.Trim().Length > 12)
+            if (textBox_bh.Text.Trim().Length < 1 || textBox_bh.Text.Trim().Length > 20)
             {
-                MessageBox.Show("会员编号为12位以下数字!");
+                MessageBox.Show("会员编号为20位以下数字!");
                 textBox_bh.Select();
                 textBox_bh.SelectAll();
                 return;
@@ -71,7 +71,7 @@ namespace Server
                 return;
             }
 
-            if (this.textBox_sj.Text.Trim().Length != 11)
+            if (this.textBox_sj.Text.Trim().Length < 1)
             {
                 MessageBox.Show("手机号为11位");
                 textBox_sj.Select();
