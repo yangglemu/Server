@@ -172,7 +172,7 @@ namespace Server
         private bool CheckTM()
         {
             string s = this.textBox_tm.Text.Trim();
-            if (s.Length == 9)
+            if (s.Length == 9 || s.Length == 10)
             {
                 foreach (char c in s)
                 {
@@ -345,7 +345,7 @@ namespace Server
 
         private void SetCombox1()
         {
-            string s = "select bh,pm,dnm from fl where char_length(dnm)=2";
+            string s = "select bh,pm,dnm from fl where char_length(dnm)=2 order by dnm asc";
             command.CommandText = s;
             MySqlDataReader dr = command.ExecuteReader();
             while (dr.Read())
@@ -385,7 +385,7 @@ namespace Server
             GoodsClass g = (this.comboBox大类.SelectedItem as GoodsClass);
             if (g == null)
                 return;
-            string s = string.Format("select bh,pm,dnm from fl where char_length(dnm)=4 and substring(dnm,1,2)='{0}' order by pm asc",
+            string s = string.Format("select bh,pm,dnm from fl where char_length(dnm)=4 and substring(dnm,1,2)='{0}' order by dnm asc",
                 g.dnm);
             command.CommandText = s;
             MySqlDataReader dr = command.ExecuteReader();
@@ -405,7 +405,7 @@ namespace Server
             GoodsClass g = (this.comboBox中类.SelectedItem as GoodsClass);
             if (g == null)
                 return;
-            string s = string.Format("select bh,pm,dnm from fl where char_length(dnm)=6 and substring(dnm,1,4)='{0}' order by pm asc",
+            string s = string.Format("select bh,pm,dnm from fl where char_length(dnm)=6 and substring(dnm,1,4)='{0}' order by dnm asc",
                 g.dnm);
             command.CommandText = s;
             MySqlDataReader dr = command.ExecuteReader();

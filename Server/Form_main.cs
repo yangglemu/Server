@@ -2351,6 +2351,7 @@ namespace Server
             this.查看备注ToolStripMenuItem_Click(null, null);
         }
 
+<<<<<<< HEAD
         private void 打印赠品ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!this.EnabledPrint) return;
@@ -2381,6 +2382,58 @@ namespace Server
             hb_document.SubStrings["fs"].Value = input.Input;
             hb_document.Print();
             hb_document.Close(SaveOptions.DoNotSaveChanges);
+=======
+        private void 导出XLS按价格toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (this.worker.qx == "低")
+                return;
+
+            SaveFileDialog sd = new SaveFileDialog();
+            sd.DefaultExt = "xls";
+            sd.AddExtension = true;
+            sd.Title = "指定要要导出的文件名及存放位置";
+            sd.Filter = "文件文件(*.xls)|*.xls";
+            if (sd.ShowDialog() == DialogResult.OK)
+            {
+                HSSFWorkbook book = new HSSFWorkbook();
+                ISheet sheet = book.CreateSheet("导出的库存文件");
+                string s = "select sj,sum(kc) as kc from goods where kc!=0 group by sj";
+                command.CommandText = s;
+                MySqlDataReader dr = command.ExecuteReader();
+                int i = 0;
+
+                ICellStyle style = book.CreateCellStyle();
+                IDataFormat format = book.CreateDataFormat();
+                style.DataFormat = format.GetFormat("0.00");
+                style.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;
+
+                ICellStyle style_all = book.CreateCellStyle();
+                style_all.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;
+
+                while (dr.Read())
+                {
+                    IRow row = sheet.CreateRow(i);
+
+                    //sj
+                    ICell cell = null;
+                    cell = row.CreateCell(0);
+                    cell.CellStyle = style;
+                    cell.SetCellValue(dr.GetFloat(0));
+                    //kc
+                    cell = row.CreateCell(1);
+                    cell.CellStyle = style_all;
+                    cell.SetCellValue(dr.GetInt32(1));
+                    i++;
+                }
+                dr.Close();
+                sheet.SetColumnWidth(0, 8 * 256);
+                sheet.SetColumnWidth(1, 6 * 256);
+                FileStream fs = new FileStream(sd.FileName, FileMode.Create, FileAccess.Write);
+                book.Write(fs);
+                fs.Close();
+                MessageBox.Show("导出成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+>>>>>>> 6da479771b3331985b8fcddc339f4069f376949b
         }
     }
 }
