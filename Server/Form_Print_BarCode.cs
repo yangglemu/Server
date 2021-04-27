@@ -21,6 +21,8 @@ namespace Server
         string hh;
         int fs;
 
+        bool isTMChecked;
+
         public Form_Print_BarCode()
         {
             InitializeComponent();
@@ -32,6 +34,7 @@ namespace Server
         public bool CheckTM()
         {            
             tm = this.textBox1_tm.Text.Trim();///////tm
+            #region
             if (tm.StartsWith("zp"))
             {
                 var s = string.Format("select pm,sj from zp_goods where tm='{0}'", tm);
@@ -56,6 +59,7 @@ namespace Server
                 this.textBox4_fs.SelectAll();
                 return true;
             }
+            #endregion
             if (tm.Length < 1 || tm.Length > 15)
                 return false;
             tm = Form_main.GetLongTM(tm);
@@ -80,6 +84,7 @@ namespace Server
             this.textBox1_tm.ReadOnly = true;
             this.textBox4_fs.Select();
             this.textBox4_fs.SelectAll();
+            this.isTMChecked = true;
             return true;
         }
         public void textBox1_KeyDown(object sender, KeyEventArgs e)//条码
@@ -135,6 +140,10 @@ namespace Server
         }
         private void button1_print_Click(object sender, EventArgs e)
         {
+            if (!isTMChecked)
+            {
+                if (!CheckTM()) return;
+            }
             if (!CheckFS())
                 return;
             this.hh = this.textBox1_hh.Text.Trim();
@@ -157,6 +166,7 @@ namespace Server
             this.textBox4_fs.Clear();
             this.textBox1_tm.Select();
             this.textBox1_hh.Clear();
+            this.isTMChecked = false;
             this.textBox1_tm.SelectAll();
             this.tm = this.pm = this.dj = this.hh = "";
             this.fs = 1;
