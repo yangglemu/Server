@@ -448,8 +448,8 @@ namespace Server
         private void toolStripMenuItem_编辑此行_Click(object sender, EventArgs e)
         {
             Form f = new Form_Edit_rk_temp(this.dataGridView.CurrentRow);
-            f.StartPosition = FormStartPosition.Manual;
-            f.Location = MousePosition;
+            f.StartPosition = FormStartPosition.CenterScreen;
+            //f.Location = MousePosition;
             f.ShowDialog(this);
         }
 
@@ -568,6 +568,11 @@ namespace Server
             if (ret != 1)
                 throw new Exception("操作数据库出错, edit table bz");
             row.Cells["内容"].Value = input.Input;
+        }
+
+        private void 打印此单ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //打印此单收银小票
         }
     }
 }
