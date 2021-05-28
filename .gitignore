@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #ignore
 #.gitignore
 
@@ -9,8 +8,3 @@
 /*/[Oo]bj/
 
 *.suo
-=======
-*.suo
-/*/[Bb]in/
-/*/[Oo]bj/
->>>>>>> 6da479771b3331985b8fcddc339f4069f376949b
