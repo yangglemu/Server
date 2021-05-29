@@ -8,3 +8,8 @@
 /*/[Oo]bj/
 
 *.suo
+*.user
+*.exe
+*.pdb
+*.Cache
+*.txt

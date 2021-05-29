@@ -2351,7 +2351,6 @@ namespace Server
             this.查看备注ToolStripMenuItem_Click(null, null);
         }
 
-<<<<<<< HEAD
         private void 打印赠品ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!this.EnabledPrint) return;
@@ -2382,7 +2381,7 @@ namespace Server
             hb_document.SubStrings["fs"].Value = input.Input;
             hb_document.Print();
             hb_document.Close(SaveOptions.DoNotSaveChanges);
-=======
+        }
         private void 导出XLS按价格toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if (this.worker.qx == "低")
@@ -2433,7 +2432,6 @@ namespace Server
                 fs.Close();
                 MessageBox.Show("导出成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
->>>>>>> 6da479771b3331985b8fcddc339f4069f376949b
         }
     }
 }

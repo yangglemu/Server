@@ -20,6 +20,7 @@ namespace Server
         string dj;
         string hh;
         int fs;
+        bool isTMChecked;
 
         public Form_Print_BarCode()
         {
@@ -48,11 +49,13 @@ namespace Server
                 MessageBox.Show("不存在的条码！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.textBox1_tm.Select();
                 this.textBox1_tm.SelectAll();
+                this.isTMChecked = false;
                 return false;
             }
             this.textBox1_tm.ReadOnly = true;
             this.textBox4_fs.Select();
             this.textBox4_fs.SelectAll();
+            this.isTMChecked = true;
             return true;
         }
         public void textBox1_KeyDown(object sender, KeyEventArgs e)//条码
@@ -108,6 +111,11 @@ namespace Server
         }
         private void button1_print_Click(object sender, EventArgs e)
         {
+            if (!this.isTMChecked)
+            {
+                if (!CheckTM())
+                    return;
+            }
             if (!CheckFS())
                 return;
             this.hh = this.textBox1_hh.Text.Trim();
@@ -134,6 +142,7 @@ namespace Server
             this.tm = this.pm = this.dj = this.hh = "";
             this.fs = 1;
             this.textBox1_tm.ReadOnly = false;
+            this.isTMChecked = false;
         }
 
         private void Form_Print_BarCode_FormClosing(object sender, FormClosingEventArgs e)

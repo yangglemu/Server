@@ -34,12 +34,9 @@ namespace Server
                 root.SelectSingleNode("password").InnerText,
                 root.SelectSingleNode("database").InnerText);
             Form_main.printer = root.SelectSingleNode("tm_printer").InnerText;
-<<<<<<< HEAD
             Form_main.shop = root.SelectSingleNode("shop").InnerText;
             if (Form_main.shop == null) throw new ArgumentNullException("Form_main.shop");
-=======
             var title = root.SelectSingleNode("shop").InnerText;
->>>>>>> 6da479771b3331985b8fcddc339f4069f376949b
             link.label1.Text = "配置完毕，正在连接数据库 ……";
             Application.DoEvents();
             try
