@@ -68,7 +68,11 @@ namespace Server
             if (this.dataGridView1 != null)
                 this.dataGridView1.ClearSelection();
             if (!(this.MdiParent as Form_main).EnabledPrint)
+            {
                 this.toolStripMenuItem_print.Enabled = false;
+                this.toolStripMenuItem_打印整张表.Enabled = false;
+            }
+            this.打印此单ToolStripMenuItem.Enabled = (this.MdiParent as Form_main).EnableXPPrint;
             if (!this.Text.Contains("【入库明细】"))
                 this.Delete撤回此入库ToolStripMenuItem.Visible = false;
         }
@@ -224,6 +228,12 @@ namespace Server
             this.dataGridView1.CurrentCell = this.dataGridView1.Rows[e.RowIndex].Cells[0];
             if (this.Text.Contains("单笔明细"))
             {
+                var mf = this.MdiParent as Form_main;
+                if (mf != null)
+                {
+                    //打印单笔交易明细
+                    this.打印此单ToolStripMenuItem.Enabled = mf.EnableXPPrint;
+                }
                 this.contextMenuStrip1.Show(dataGridView1, this.PointToClient(MousePosition));
             }
             else if (this.Text == "商品资料" || this.Text.Contains("入库明细") || this.Text.Contains("入库汇总"))
@@ -305,20 +315,27 @@ namespace Server
         {
             if (this.Text.Contains("【入库明细--工具】") || this.Text.Contains("【入库汇总--工具】"))
                 (this.MdiParent as Form_main).toolStripMenuItem_真实入库.Enabled = true;
+
             if (this.Text.Contains("入库汇总") || this.Text.Contains("入库明细"))
             {
+                this.toolStripMenuItem_print.Visible = true;
                 this.toolStripMenuItem_打印整张表.Visible = true;
             }
             if (this.Text.Contains("【入库明细--工具】"))
             {
-                this.toolStripMenuItem_打印整张表.Visible = true;
                 this.toolStripMenuItem_删除此行.Visible = true;
                 this.toolStripMenuItem_编辑此行.Visible = true;
             }
-            if (this.Text == "出库明细")
+            if (this.Text.Contains("出库明细"))
             {
-                this.toolStripMenuItem_print.Visible = false;
+                this.toolStripMenuItem_print.Visible = true;
+                this.toolStripMenuItem_打印整张表.Visible = false;
                 this.撤回此出库ToolStripMenuItem.Visible = true;
+            }
+            if (this.Text.Contains("单笔明细"))
+            {
+                this.打印此单ToolStripMenuItem.Enabled = (this.MdiParent as Form_main).EnableXPPrint;
+                this.打印此单ToolStripMenuItem.Visible = true;
             }
 
         }
@@ -330,17 +347,15 @@ namespace Server
 
         private void Form_MDIChild_Deactivate(object sender, EventArgs e)
         {
-            if (this.Text.Contains("入库明细") || this.Text.Contains("入库汇总"))
+            if (this.Text.Contains("明细") || this.Text.Contains("汇总"))
             {
                 (this.MdiParent as Form_main).toolStripMenuItem_真实入库.Enabled = false;
+                this.打印此单ToolStripMenuItem.Visible = false;
+                this.toolStripMenuItem_print.Visible = false;
                 this.toolStripMenuItem_打印整张表.Visible = false;
                 this.toolStripMenuItem_删除此行.Visible = false;
                 this.toolStripMenuItem_编辑此行.Visible = false;
-            }
-            if (this.Text == "出库明细")
-            {
                 this.撤回此出库ToolStripMenuItem.Visible = false;
-                this.toolStripMenuItem_print.Visible = true;
             }
         }
 
@@ -567,6 +582,12 @@ namespace Server
             if (ret != 1)
                 throw new Exception("操作数据库出错, edit table bz");
             row.Cells["内容"].Value = input.Input;
+        }
+
+        private void 打印此单ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //在浏览单笔交易时，右键选择此项可打印小票
+
         }
     }
 }

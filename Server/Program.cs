@@ -33,6 +33,7 @@ namespace Server
                 root.SelectSingleNode("user").InnerText,
                 root.SelectSingleNode("password").InnerText,
                 root.SelectSingleNode("database").InnerText);
+            Form_main.xp_printer = root.SelectSingleNode("printer").InnerText;
             Form_main.printer = root.SelectSingleNode("tm_printer").InnerText;
             Form_main.shop = root.SelectSingleNode("shop").InnerText;
             if (Form_main.shop == null) throw new ArgumentNullException("Form_main.shop");

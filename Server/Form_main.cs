@@ -22,7 +22,18 @@ namespace Server
     {
         public static string shop;
         public static string printer;
+        public static string xp_printer;
         private bool enabledPrint;
+        private bool enableXPPrint;
+
+        public bool EnableXPPrint
+        {
+            get { return this.enableXPPrint; }
+            set
+            {
+                this.enableXPPrint = value;
+            }
+        }
 
         public bool EnabledPrint
         {
@@ -106,6 +117,7 @@ namespace Server
         private void Form_main_Load(object sender, EventArgs e)
         {
             this.EnabledPrint = false;
+            this.EnableXPPrint = false;
             this.toolStripMenuItem_真实入库.Enabled = false;
         }
 
@@ -126,6 +138,7 @@ namespace Server
         {
             foreach (string s in PrinterSettings.InstalledPrinters)
             {
+                //设置条码打印机
                 if (s.Equals(Form_main.printer))
                 {
                     try
@@ -139,8 +152,36 @@ namespace Server
                     {
                         MessageBox.Show(exp.Message);
                     }
-                    break;
                 }
+                //设置小票打印机
+                if(s.Equals(Form_main.xp_printer))
+                {
+                    this.SetXPPrinterToEnable();
+                }
+            }
+        }
+
+        private void SetPrinterToEnable()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(SetPrinterToEnable));
+            }
+            else
+            {
+                this.EnabledPrint = true;
+            }
+        }
+
+        private void SetXPPrinterToEnable()
+        {
+            if(this.InvokeRequired)
+            {
+                this.Invoke(new Action(SetXPPrinterToEnable));
+            }
+            else
+            {
+                this.EnableXPPrint = true;
             }
         }
 
@@ -511,19 +552,7 @@ namespace Server
             f.toolStripStatusLabel1.Text += "， 共【" + hjsl.ToString() + "】件商品";
             f.Show();
         }
-
-        private void SetPrinterToEnable()
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new Action(SetPrinterToEnable));
-            }
-            else
-            {
-                this.EnabledPrint = true;
-            }
-        }
-
+                
         private void 按日统计_toolStripMenuItem4_Click(object sender, EventArgs e)
         {
             string start, end;
