@@ -43,3 +43,6 @@ D:\VS2013\Server\Server\bin\Debug\MySql.Data.xml
 D:\VS2013\Server\Server\obj\Debug\Server.exe
 D:\VS2013\Server\Server\obj\Debug\Server.pdb
 D:\VS2013\Server\Server\bin\Debug\LumiSoft.Net.dll
+D:\Devlop\Server\Server\bin\Debug\Server.exe.config
+D:\Devlop\Server\Server\obj\Debug\Server.exe
+D:\Devlop\Server\Server\obj\Debug\Server.pdb
