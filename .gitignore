@@ -5,7 +5,8 @@
 #/*/[Bb]in/
 
 #obj
-#/*/[Oo]bj/
+/*/[Oo]bj/
+[Oo]bj/
 
 *.suo
 *.user
