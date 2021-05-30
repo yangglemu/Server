@@ -2,10 +2,10 @@
 #.gitignore
 
 #bin
-/*/[Bb]in/
+#/*/[Bb]in/
 
 #obj
-/*/[Oo]bj/
+#/*/[Oo]bj/
 
 *.suo
 *.user
