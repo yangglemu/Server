@@ -20,9 +20,19 @@ namespace Server
 {
     public partial class Form_main : Form
     {
-        public static string shop;
         public static string printer;
         public static string xp_printer;
+
+        public static Font title;
+        public static Font font;
+        public static float fontHeight;
+        public static float x1;
+        public static float x2;
+        public static float x3;
+        public static string windowtitle;
+        public static string shop;
+        public static string address;
+
         private bool enabledPrint;
         private bool enableXPPrint;
 

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Seagull.BarTender.Print;
+using System.Drawing.Printing;
+using System.Drawing.Drawing2D;
 
 namespace Server
 {
@@ -587,7 +589,102 @@ namespace Server
         private void 打印此单ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //在浏览单笔交易时，右键选择此项可打印小票
+            var mf = this.MdiParent as Form_main;
+            if (mf == null) return;
+            if (!mf.EnableXPPrint) return;
+            var doc = new PrintDocument();
+            doc.DocumentName = "打印小票";
+            doc.PrintController = new StandardPrintController();
+            doc.PrinterSettings.PrinterName = Form_main.xp_printer;
+            doc.PrintPage += new PrintPageEventHandler(doc_PrintPage);
+            doc.Print();
+        }
 
+        void doc_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            var font = Form_main.font;
+            var cells = this.dataGridView.CurrentRow.Cells;
+
+            e.PageSettings.Margins = new Margins(0, 0, 0, 0);
+            e.Graphics.PageUnit = GraphicsUnit.Millimeter;
+            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+            Pen p = new Pen(Brushes.Black, 0.5f);
+            p.DashStyle = DashStyle.Dash;
+            float width = 56.0f;        //纸张宽度mm
+            float rh = 4.5f;            //行距
+            float x, y;                 //绘制时的起始坐标
+            y = 0.0f;
+
+            string text = Form_main.shop;
+            x = e.Graphics.MeasureString(text, Form_main.title).Width;
+            x = (width - x) / 2f - 2f;
+            e.Graphics.DrawString(text, Form_main.title, Brushes.Black, x, y);
+            //拉高字体
+            //e.Graphics.ScaleTransform(1f, Form_main.fontHeight);
+
+            x = 0.0f;
+            y += rh + 0.5f;
+            string dj = "单号:  " + cells["单据号"].Value;
+            e.Graphics.DrawString(dj, Form_main.font, Brushes.Black, x, y);//单据号
+
+            y += rh;
+            e.Graphics.DrawLine(p, x, y, width - x, y);//划线
+
+            var sql = "select goods.pm,sale_mx.tm,sale_mx.sj,sale_mx.zq,sale_mx.sl,sale_mx.je from sale_mx left join(goods) on(sale_mx.tm=goods.tm) where sale_mx.djh='" + cells["单据号"].Value + "'";
+            var dt = new DataTable();
+            Form_main.Command.CommandText = sql;
+            var adapter = new MySqlDataAdapter(Form_main.Command);
+            adapter.Fill(dt);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var r = dt.Rows[i];
+                //单行绘制品名
+                e.Graphics.DrawString((i + 1).ToString() + "." + r[0], Form_main.font, Brushes.Black, x, y);
+                float addx = 24f;
+                if (r[0].ToString().Length > 6)
+                    addx = 26f;
+                //绘制条码
+                e.Graphics.DrawString(r[1].ToString(), Form_main.font, Brushes.Black, x + addx, y);
+
+                y += 4.0f;
+                e.Graphics.DrawString("单价", font, Brushes.Black, x, y);
+                e.Graphics.DrawString("折扣", font, Brushes.Black, x + Form_main.x1, y);
+                e.Graphics.DrawString("数量", font, Brushes.Black, x + Form_main.x2, y);
+                e.Graphics.DrawString("金额", font, Brushes.Black, x + Form_main.x3, y);
+
+                y += 4.0f;
+                //排序：pm, tm, sj, zq, sl, je
+                //sj
+                e.Graphics.DrawString(int.Parse(r[2].ToString()).ToString("0.00"), font, Brushes.Black, x, y);
+                //zq
+                e.Graphics.DrawString(int.Parse(r[3].ToString()).ToString("0.00"), font, Brushes.Black, x + Form_main.x1, y);
+                //sl
+                e.Graphics.DrawString(r[4].ToString(), font, Brushes.Black, x + Form_main.x2 + 2.5f, y);
+                //je
+                e.Graphics.DrawString(int.Parse(r[5].ToString()).ToString("0.00"), font, Brushes.Black, x + Form_main.x3 - 0.8f, y);
+                y += rh;
+                e.Graphics.DrawLine(p, x, y, width - x, y);
+            }
+
+            float yszl = x + Form_main.x2;
+            e.Graphics.DrawString("合计：" + cells["数量"].Value + "件", font, Brushes.Black, x, y);
+            e.Graphics.DrawString("应收：" + int.Parse(cells["金额"].Value.ToString()).ToString("0.00"), font, Brushes.Black, yszl, y);
+
+            y += 4.0f;
+            e.Graphics.DrawString("实收：" + int.Parse(cells["实收"].Value.ToString()).ToString("0.00"), font, Brushes.Black, x, y);
+            e.Graphics.DrawString("找零：" + int.Parse(cells["找零"].Value.ToString()).ToString("0.00"), font, Brushes.Black, yszl, y);
+
+            y += 4.0f;
+            e.Graphics.DrawString("收银：" + cells["收银员"].Value, font, Brushes.Black, x, y);//收银员
+
+            e.Graphics.DrawString("地址：" + Form_main.address, font, Brushes.Black, yszl, y);
+
+            y += rh;
+            text = "---凭此小票退换货---";
+            x = e.Graphics.MeasureString(text, font).Width;
+            x = (width - x) / 2f - 2f;
+            e.Graphics.DrawString(text, font, Brushes.Black, x, y);
         }
     }
 }

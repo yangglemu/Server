@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Xml;
 using System.Threading;
+using System.Drawing;
 
 namespace Server
 {
@@ -37,7 +38,22 @@ namespace Server
             Form_main.printer = root.SelectSingleNode("tm_printer").InnerText;
             Form_main.shop = root.SelectSingleNode("shop").InnerText;
             if (Form_main.shop == null) throw new ArgumentNullException("Form_main.shop");
-            var title = root.SelectSingleNode("shop").InnerText;
+
+            XmlNode temp = root.SelectSingleNode("/config/font/title");
+            Form_main.title = new Font(temp.InnerText, float.Parse(temp.Attributes["size"].Value));
+            temp = root.SelectSingleNode("/config/font/font");
+            Form_main.font = new Font(temp.InnerText, float.Parse(temp.Attributes["size"].Value));
+            temp = root.SelectSingleNode("/config/font/height");
+            Form_main.fontHeight = float.Parse(temp.InnerText);
+            temp = root.SelectSingleNode("/config/position/x1");
+            Form_main.x1 = float.Parse(temp.InnerText);
+            temp = root.SelectSingleNode("/config/position/x2");
+            Form_main.x2 = float.Parse(temp.InnerText);
+            temp = root.SelectSingleNode("/config/position/x3");
+            Form_main.x3 = float.Parse(temp.InnerText);
+            Form_main.windowtitle = root.SelectSingleNode("/config/shop").InnerText;
+            Form_main.address = root.SelectSingleNode("/config/address").InnerText;
+
             link.label1.Text = "配置完毕，正在连接数据库 ……";
             Application.DoEvents();
             try
